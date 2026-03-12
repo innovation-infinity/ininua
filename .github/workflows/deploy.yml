@@ -1,0 +1,23 @@
+name: Deploy to Azure Blob Storage
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload to Azure $web
+        uses: azure/CLI@v2
+        with:
+          inlineScript: |
+            az storage blob upload-batch \
+              --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" \
+              --destination '$web' \
+              --source . \
+              --overwrite true \
+              --content-type-map '{"html":"text/html; charset=utf-8","css":"text/css","js":"application/javascript","pdf":"application/pdf","jpg":"image/jpeg","png":"image/png"}'
