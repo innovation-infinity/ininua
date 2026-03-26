@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="InIn — Innovations Infinity. Пластикова альтернатива. 3D-виробництво. Техноорден.">
+    <meta property="og:title" content="InIn — Innovations Infinity">
+    <meta property="og:image" content="img/logo-color.png">
+    <title>InIn — Innovations Infinity</title>
+    <link rel="icon" type="image/png" href="img/logo-color.png">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --bg2: #0e0e18;
+            --red: #c83232;
+            --cyan: #00b4dc;
+            --text: rgba(255,255,255,0.85);
+            --dim: rgba(255,255,255,0.38);
+            --border: rgba(255,255,255,0.07);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.9rem 2rem;
+            background: rgba(10,10,15,0.88);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+        .nav-logo img { height: 28px; width: 28px; object-fit: contain; }
+        .nav-logo span { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.12em; color: var(--text); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: var(--dim); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.05em; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.active { color: var(--cyan); }
+
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 5rem 2rem 3rem;
+            position: relative; overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: 0; z-index: 0;
+            background:
+                radial-gradient(circle at 28% 38%, rgba(200,50,50,0.07) 0%, transparent 55%),
+                radial-gradient(circle at 72% 62%, rgba(0,180,220,0.06) 0%, transparent 55%);
+        }
+        .hero-neon {
+            position: absolute; right: -60px; bottom: -40px;
+            width: 340px; opacity: 0.08; pointer-events: none; z-index: 0;
+        }
+        .hero-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1.4rem; }
+        .hero-logo {
+            width: min(260px, 52vw); height: min(260px, 52vw); object-fit: contain;
+            filter: drop-shadow(0 0 40px rgba(200,50,50,0.3)) drop-shadow(0 0 80px rgba(0,180,220,0.2));
+            animation: logoPulse 4s ease-in-out infinite;
+        }
+        @keyframes logoPulse {
+            0%,100% { filter: drop-shadow(0 0 40px rgba(200,50,50,0.3)) drop-shadow(0 0 80px rgba(0,180,220,0.2)); }
+            50%      { filter: drop-shadow(0 0 60px rgba(200,50,50,0.5)) drop-shadow(0 0 100px rgba(0,180,220,0.35)); }
+        }
+        .hero-line { width: min(280px,58vw); height: 1px; background: linear-gradient(90deg,transparent,rgba(200,50,50,0.5),rgba(0,180,220,0.5),transparent); }
+        .hero-title { font-size: clamp(0.9rem, 2.8vw, 1.8rem); font-weight: 300; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(255,255,255,0.65); }
+        .hero-sub { font-size: clamp(0.68rem,1.4vw,0.9rem); color: var(--dim); letter-spacing: 0.08em; font-style: italic; }
+        .scroll-hint { margin-top: 2.5rem; color: var(--dim); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; animation: bounce 2s ease-in-out infinite; }
+        @keyframes bounce { 0%,100%{transform:translateY(0);opacity:0.4} 50%{transform:translateY(6px);opacity:0.8} }
+
+        /* ── SHARED ── */
+        .wrap { max-width: 1080px; margin: 0 auto; padding: 5.5rem 2rem; }
+        .s-label { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.4rem; }
+        .s-title { font-size: clamp(1.7rem, 3.8vw, 2.8rem); font-weight: 700; line-height: 1.1; margin-bottom: 1.2rem; }
+        .s-text { color: var(--dim); font-size: 0.95rem; max-width: 580px; line-height: 1.85; margin-bottom: 2rem; }
+        .sep { width: 100%; height: 1px; background: var(--border); }
+
+        /* ── YADSTORE ── */
+        #yadstore { background: var(--bg2); }
+
+        .yadstore-top {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; margin-bottom: 3rem;
+        }
+        .yadstore-logo-img {
+            width: 100%; max-width: 280px;
+            border-radius: 10px;
+        }
+        .yadstore-printed {
+            width: 100%; border-radius: 8px;
+            border: 1px solid var(--border);
+            filter: brightness(0.88) saturate(0.9);
+        }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+        .card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.6rem; transition: border-color 0.3s; }
+        .card:hover { border-color: rgba(0,180,220,0.28); }
+        .card-icon { font-size: 1.3rem; margin-bottom: 0.7rem; }
+        .card h3 { font-size: 0.92rem; font-weight: 600; margin-bottom: 0.4rem; }
+        .card p { font-size: 0.84rem; color: var(--dim); line-height: 1.7; }
+
+        .schema-img {
+            width: 100%; border-radius: 8px; border: 1px solid var(--border);
+            filter: brightness(0.75) saturate(0.6);
+            margin-top: 2.5rem;
+        }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.8rem; }
+        .tag { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 4px; padding: 0.28rem 0.75rem; font-size: 0.75rem; color: var(--dim); letter-spacing: 0.05em; }
+
+        /* ── YADFRAMES ── */
+        #yadframes { }
+
+        .frames-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; margin-top: 2.5rem;
+        }
+        .frames-logo { width: 100%; max-width: 300px; border-radius: 10px; }
+        .frames-cats { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.2rem; }
+        .cat { border: 1px solid rgba(200,50,50,0.35); border-radius: 4px; padding: 0.22rem 0.65rem; font-size: 0.72rem; color: rgba(200,50,50,0.75); letter-spacing: 0.08em; text-transform: uppercase; }
+        .models-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+        .model-img {
+            width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: center 20%;
+            border-radius: 6px; border: 1px solid var(--border);
+            filter: brightness(0.8) saturate(0.65);
+            transition: filter 0.3s;
+        }
+        .model-img:hover { filter: brightness(1) saturate(1); }
+        .frames-note { font-size: 0.84rem; color: var(--dim); line-height: 1.8; }
+
+        /* ── ABOUT ── */
+        #about { background: var(--bg2); position: relative; overflow: hidden; }
+        .about-bg {
+            position: absolute; inset: 0; z-index: 0;
+            background-image: url('img/workshop.jpg');
+            background-size: cover; background-position: center 30%;
+            opacity: 0.08; filter: grayscale(60%);
+        }
+        .about-inner { position: relative; z-index: 1; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 2.5rem; }
+        .about-quote {
+            font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+            font-style: italic; font-weight: 300;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.6; border-left: 2px solid var(--red); padding-left: 1.5rem;
+        }
+        .about-stats { display: flex; flex-direction: column; gap: 2rem; }
+        .stat-row { display: flex; align-items: baseline; gap: 1rem; }
+        .stat-val { font-size: 2.2rem; font-weight: 700; background: linear-gradient(135deg, var(--red), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-desc { font-size: 0.88rem; color: var(--dim); line-height: 1.5; max-width: 260px; }
+        .about-text-block { margin-top: 2.5rem; }
+        .about-text-block p { color: var(--dim); font-size: 0.93rem; line-height: 1.85; max-width: 680px; }
+
+        /* ── PROJECTS ── */
+        #projects { }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px,1fr)); gap: 1rem; margin-top: 2rem; }
+        .proj { border: 1px solid var(--border); border-radius: 8px; padding: 1.3rem 1.5rem; display: flex; gap: 1rem; align-items: flex-start; transition: background 0.25s; }
+        .proj:hover { background: var(--bg2); }
+        .proj-num { font-size: 0.68rem; color: var(--dim); letter-spacing: 0.1em; margin-top: 0.15rem; min-width: 22px; }
+        .proj h3 { font-size: 0.93rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .proj p { font-size: 0.81rem; color: var(--dim); }
+
+        .methodology { margin-top: 3rem; }
+        .methodology img { width: 100%; border-radius: 8px; border: 1px solid var(--border); filter: brightness(0.7) saturate(0.5); }
+        .methodology p { font-size: 0.75rem; color: var(--dim); margin-top: 0.5rem; text-align: center; letter-spacing: 0.05em; }
+
+        /* ── LIVE OR DIE ── */
+        #live-or-die {
+            position: relative; overflow: hidden;
+            min-height: 520px;
+            display: flex; align-items: center;
+        }
+        .lod-bg {
+            position: absolute; inset: 0;
+            background-image: url('img/special/live-or-die.jpg');
+            background-size: cover; background-position: center 30%;
+            filter: brightness(0.35) saturate(0.7);
+        }
+        .lod-inner {
+            position: relative; z-index: 1;
+            max-width: 1080px; margin: 0 auto; padding: 5rem 2rem;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+        }
+        .lod-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800; line-height: 1;
+            letter-spacing: -0.02em;
+        }
+        .lod-title span { display: block; }
+        .lod-title .live { color: var(--cyan); }
+        .lod-title .or   { color: var(--dim); font-weight: 300; font-size: 0.5em; letter-spacing: 0.2em; text-transform: uppercase; }
+        .lod-title .die  { color: var(--red); }
+        .lod-text { color: rgba(255,255,255,0.65); font-size: 0.95rem; line-height: 1.85; }
+        .lod-text p + p { margin-top: 1rem; }
+
+        /* ── THEORY ── */
+        #theory { }
+        .theory-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; margin-top: 2.5rem; }
+        .theory-formula {
+            font-family: 'Courier New', monospace;
+            font-size: 1.05rem; color: var(--cyan);
+            background: rgba(0,180,220,0.05); border: 1px solid rgba(0,180,220,0.15);
+            border-radius: 8px; padding: 1.5rem; line-height: 2;
+        }
+        .theory-terms { display: flex; flex-direction: column; gap: 0.9rem; }
+        .term { border-left: 2px solid var(--border); padding-left: 1rem; }
+        .term-name { font-size: 0.82rem; font-weight: 600; color: var(--text); letter-spacing: 0.05em; }
+        .term-desc { font-size: 0.8rem; color: var(--dim); line-height: 1.6; margin-top: 0.15rem; }
+        .pdf-link {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(200,50,50,0.4); border-radius: 6px;
+            padding: 0.6rem 1.2rem; color: rgba(200,50,50,0.8);
+            text-decoration: none; font-size: 0.82rem; letter-spacing: 0.05em;
+            transition: background 0.2s, color 0.2s;
+        }
+        .pdf-link:hover { background: rgba(200,50,50,0.1); color: rgba(200,50,50,1); }
+
+        /* ── FRAMES GALLERY ── */
+        .frames-section-title { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); margin: 3rem 0 1.2rem; }
+        .rfg-hero {
+            width: 100%; border-radius: 8px; overflow: hidden; cursor: pointer; position: relative; margin-bottom: 0.7rem;
+            border: 1px solid var(--border);
+        }
+        .rfg-hero img {
+            width: 100%; max-height: 480px; object-fit: cover; object-position: center 30%;
+            display: block; filter: brightness(0.9);
+            transition: filter 0.3s, transform 0.5s;
+        }
+        .rfg-hero:hover img { filter: brightness(1); transform: scale(1.015); }
+        .rfg-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem;
+        }
+        .rfg-item {
+            overflow: hidden; border-radius: 6px; border: 1px solid var(--border);
+            cursor: pointer; position: relative;
+        }
+        .rfg-item img {
+            width: 100%; aspect-ratio: 1; object-fit: cover; display: block;
+            filter: brightness(0.82); transition: filter 0.3s, transform 0.5s;
+        }
+        .rfg-item:hover img { filter: brightness(1); transform: scale(1.04); }
+        .rfg-item .p-label, .rfg-hero .p-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 0.6rem 0.8rem; background: linear-gradient(transparent, rgba(0,0,0,0.75)); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); transform: translateY(100%); transition: transform 0.3s; }
+        .rfg-item:hover .p-label, .rfg-hero:hover .p-label { transform: translateY(0); }
+
+        /* ── UNFORGIVEN BANNER ── */
+        .unforgiven-banner {
+            width: 100%; border-radius: 10px; overflow: hidden; margin-top: 3.5rem;
+            border: 1px solid rgba(200,50,50,0.2);
+            position: relative;
+        }
+        .unforgiven-banner img { width: 100%; display: block; filter: brightness(0.85); }
+        .unforgiven-banner-label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 1.2rem 1.5rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.5);
+        }
+
+        /* ── ХТОНҐИ ── */
+        #htonhy { background: var(--bg2); }
+        .htonhy-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem;
+        }
+        .htonhy-item {
+            overflow: hidden; border-radius: 8px; border: 1px solid var(--border);
+            cursor: pointer; position: relative;
+        }
+        .htonhy-item img {
+            width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top;
+            display: block; filter: brightness(0.82);
+            transition: filter 0.3s, transform 0.5s;
+        }
+        .htonhy-item:hover img { filter: brightness(1); transform: scale(1.04); }
+        .htonhy-item .p-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 0.6rem 0.8rem; background: linear-gradient(transparent, rgba(0,0,0,0.8)); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); transform: translateY(100%); transition: transform 0.3s; }
+        .htonhy-item:hover .p-label { transform: translateY(0); }
+
+        /* ── PANELS GALLERY ── */
+        #panels { background: var(--bg2); }
+        .panels-mosaic {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            gap: 0.7rem;
+            margin-top: 2.5rem;
+        }
+        .panels-mosaic .p-item {
+            overflow: hidden; border-radius: 6px; border: 1px solid var(--border);
+            cursor: pointer; position: relative;
+        }
+        .panels-mosaic .p-item.wide { grid-column: span 2; }
+        .panels-mosaic .p-item img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            transition: transform 0.5s ease, filter 0.3s;
+            filter: brightness(0.88);
+            aspect-ratio: 1;
+        }
+        .panels-mosaic .p-item.wide img { aspect-ratio: 2/1; }
+        .panels-mosaic .p-item:hover img { transform: scale(1.04); filter: brightness(1); }
+        .p-label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 0.6rem 0.8rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.75));
+            font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            transform: translateY(100%); transition: transform 0.3s;
+        }
+        .panels-mosaic .p-item:hover .p-label { transform: translateY(0); }
+
+        /* lightbox */
+        .lb { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 200; display: none; align-items: center; justify-content: center; }
+        .lb.on { display: flex; }
+        .lb img { max-width: 90vw; max-height: 90vh; border-radius: 4px; }
+        .lb-close { position: absolute; top: 1.2rem; right: 1.5rem; font-size: 2rem; color: var(--dim); cursor: pointer; line-height: 1; }
+
+        /* ── FOOTER ── */
+        footer { border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+        footer img { width: 40px; margin-bottom: 0.8rem; opacity: 0.5; }
+        footer p { color: var(--dim); font-size: 0.8rem; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+        footer a { color: var(--cyan); text-decoration: none; }
+        .social-links { display: flex; justify-content: center; gap: 1.4rem; margin: 1rem 0; }
+        .social-links a { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--dim); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.05em; transition: color 0.2s; }
+        .social-links a:hover { color: var(--cyan); }
+        .social-links svg { width: 17px; height: 17px; fill: currentColor; flex-shrink: 0; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            nav { padding: 0.75rem 1.2rem; }
+            .nav-links { display: none; }
+            .yadstore-top { grid-template-columns: 1fr; gap: 1.5rem; }
+            .frames-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .wrap { padding: 4rem 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a class="nav-logo" href="#hero">
+        <img src="img/logo-color.png" alt="InIn">
+        <span>InIn</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="#yadstore">YaDStore</a></li>
+        <li><a href="#yadframes">YaDFrames</a></li>
+        <li><a href="#htonhy">Хтонґи</a></li>
+        <li><a href="#panels">Панелі</a></li>
+        <li><a href="#about">Засновник</a></li>
+        <li><a href="#projects">Проекти</a></li>
+        <li><a href="https://www.instagram.com/yadstore_ua" target="_blank" rel="noopener" style="color:var(--cyan)">Instagram</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+    <div class="hero-bg"></div>
+    <img src="img/inin-neon.png" class="hero-neon" alt="">
+    <div class="hero-inner">
+        <img src="img/logo-color.png" alt="InIn" class="hero-logo">
+        <div class="hero-line"></div>
+        <div class="hero-title">Innovations Infinity</div>
+        <div class="hero-sub">Ніщо не зупинить ідею, час якої настав</div>
+        <div class="scroll-hint">↓ scroll</div>
+    </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- YADSTORE -->
+<div id="yadstore">
+<div class="wrap">
+    <div class="s-label">Перший проект</div>
+    <h2 class="s-title">YaDStore —<br>пластикова альтернатива</h2>
+
+    <div class="yadstore-top">
+        <div>
+            <img src="img/yadstore-logo.jpg" alt="YaDStore" class="yadstore-logo-img">
+        </div>
+        <div>
+            <p class="s-text" style="margin-bottom:0">
+                Рамки. Декор. Панелі. Плитка. Стінові елементи.<br>
+                Все що зазвичай береться в масмаркеті однаковим для всіх —
+                тут виробляється під конкретний запит.
+                3D-друк дозволяє малий тираж без великих витрат.
+                Понад мільйон гривень вкладено. Не в рекламу — у виробництво.
+            </p>
+        </div>
+    </div>
+
+    <div class="cards">
+        <div class="card">
+            <div class="card-icon">🖨️</div>
+            <h3>Для виробника</h3>
+            <p>Вхід у мережу = $0. Є принтер — ти вже в системі. Замовлення приходять через платформу.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🏪</div>
+            <h3>Точки продажу</h3>
+            <p>Стенди у фотоцентрах. QR-код. Каталог зразків. Без окремого магазину.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">📦</div>
+            <h3>Для клієнта</h3>
+            <p>Унікальний виріб замість стандарту. Під тебе, під простір, під запит.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🌐</div>
+            <h3>Децентралізація</h3>
+            <p>Мережа виробників. Замовлення йде до найближчого. Ніякого центрального складу.</p>
+        </div>
+    </div>
+
+    <img src="img/inin-printed.jpg" alt="Надруковані логотипи InIn" class="yadstore-printed">
+
+    <img src="img/methodology.png" alt="Схема методології InIn" class="schema-img">
+
+    <div class="tags">
+        <span class="tag">YaDFrames</span>
+        <span class="tag">YaDPanel</span>
+        <span class="tag">YaDTile</span>
+        <span class="tag">YaDWall</span>
+        <span class="tag">YaDesign</span>
+        <span class="tag">ininua.com</span>
+    </div>
+</div>
+</div>
+
+<div class="sep"></div>
+
+<!-- YADFRAMES -->
+<div id="yadframes">
+<div class="wrap">
+    <div class="s-label">Флагманський продукт</div>
+    <h2 class="s-title">YaDFrames —<br>рамки як портали</h2>
+
+    <div class="frames-grid">
+        <div>
+            <img src="img/yadframes-logo.jpg" alt="YaDFrames" class="frames-logo">
+            <div style="margin-top:1.5rem">
+                <p class="frames-note">
+                    Кожна рамка — частина світу Хтонґів.<br>
+                    Охоронці спогадів з Архіпелагу Хтознаде.<br>
+                    Форми: змій, восьминіг, луска, тентаклі.<br>
+                    Три тири: масмаркет / преміум / арт-об'єкт.
+                </p>
+                <div class="frames-cats" style="margin-top:1rem">
+                    <span class="cat">FORMA</span>
+                    <span class="cat">STONES</span>
+                    <span class="cat">FRACTAL CELLS</span>
+                    <span class="cat">FIGURE</span>
+                    <span class="cat">LABIRINT</span>
+                    <span class="cat">VERTICAL DECOR</span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="models-grid">
+                <img src="img/frame-model-1.png" alt="Модель Хтонґа 1" class="model-img">
+                <img src="img/frame-model-2.png" alt="Модель Хтонґа 2" class="model-img">
+                <img src="img/frame-model-3.png" alt="Модель Хтонґа 3" class="model-img">
+            </div>
+        </div>
+    </div>
+
+    <!-- Реальні фото продукту -->
+    <div class="frames-section-title">Реальні знімки</div>
+
+    <div class="rfg-hero" onclick="openLb(this)">
+        <img src="img/frames/YDF-002.jpg" alt="Мама з дитиною — фото в YaDFrame">
+        <div class="p-label">Продукт у дії</div>
+    </div>
+
+    <div class="rfg-grid">
+        <div class="rfg-item" onclick="openLb(this)">
+            <img src="img/frames/YDF-012.jpg" alt="Колекція рамок">
+            <div class="p-label">Колекція</div>
+        </div>
+        <div class="rfg-item" onclick="openLb(this)">
+            <img src="img/frames/YDF-015.jpg" alt="Рамка-руки + Хтонґ">
+            <div class="p-label">Hands + Хтонґ</div>
+        </div>
+        <div class="rfg-item" onclick="openLb(this)">
+            <img src="img/frames/YDF-001.jpg" alt="YaDFrame">
+            <div class="p-label">YDF-001</div>
+        </div>
+        <div class="rfg-item" onclick="openLb(this)">
+            <img src="img/frames/YDF-003.jpg" alt="YaDFrame">
+            <div class="p-label">YDF-003</div>
+        </div>
+        <div class="rfg-item" onclick="openLb(this)">
+            <img src="img/frames/YDF-011.jpg" alt="YaDFrame">
+            <div class="p-label">YDF-011</div>
+        </div>
+        <div class="rfg-item" onclick="openLb(this)">
+            <img src="img/frames/YDF-014.jpg" alt="YaDFrame">
+            <div class="p-label">YDF-014</div>
+        </div>
+    </div>
+
+    <!-- UNFORGIVEN FRAME poster -->
+    <div class="unforgiven-banner">
+        <img src="img/renders/RND-005.png" alt="UNFORGIVEN FRAME">
+        <div class="unforgiven-banner-label">YaDFrames — UNFORGIVEN</div>
+    </div>
+</div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ХТОНҐИ -->
+<div id="htonhy">
+<div class="wrap">
+    <div class="s-label">Mythology · YaDFrames</div>
+    <h2 class="s-title">Хтонґи —<br>охоронці спогадів</h2>
+    <p class="s-text">
+        Раса з Архіпелагу Хтознаде. Кожна рамка — симбіоз з охоронцем.
+        Три племені: Поглиначі, Обіймачі, Повзучі.
+        Мистецтво + виробництво + міфологія = нова категорія продукту.
+    </p>
+
+    <div class="htonhy-grid">
+        <div class="htonhy-item" onclick="openLb(this)">
+            <img src="img/htonhy/YDH-001.jpg" alt="Хтонґи">
+            <div class="p-label">YDH-001</div>
+        </div>
+        <div class="htonhy-item" onclick="openLb(this)">
+            <img src="img/htonhy/YDH-002.jpg" alt="Вся колекція Хтонґів">
+            <div class="p-label">Колекція</div>
+        </div>
+        <div class="htonhy-item" onclick="openLb(this)">
+            <img src="img/htonhy/YDH-003.jpg" alt="Хтонґи">
+            <div class="p-label">YDH-003</div>
+        </div>
+        <div class="htonhy-item" onclick="openLb(this)">
+            <img src="img/htonhy/YDH-004.jpg" alt="Хтонґи">
+            <div class="p-label">YDH-004</div>
+        </div>
+        <div class="htonhy-item" onclick="openLb(this)">
+            <img src="img/htonhy/YDH-005.jpg" alt="Хтонґи">
+            <div class="p-label">YDH-005</div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="sep"></div>
+
+<!-- LIVE OR DIE -->
+<div id="live-or-die">
+    <div class="lod-bg"></div>
+    <div class="lod-inner">
+        <div>
+            <div class="lod-title">
+                <span class="live">Жити.</span>
+                <span class="or">або</span>
+                <span class="die">Знищувати.</span>
+            </div>
+        </div>
+        <div class="lod-text">
+            <p>
+                Технологія — це просто інструмент.
+                Маленька дівчинка керує тисячами дронів думкою —
+                і тушить лісову пожежу.
+                Хлопчик на тракторі зупиняє вогонь далі.
+            </p>
+            <p>
+                У когось ті самі технології — для знищення.
+                У когось — для життя і безпеки.
+            </p>
+            <p style="color:rgba(255,255,255,0.35); font-size:0.85rem; font-style:italic;">
+                Один в полі воїн — якщо з технологіями.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- THEORY OF SENSES -->
+<div id="theory">
+<div class="wrap">
+    <div class="s-label">Вершник 2 · Теорія Сенсів</div>
+    <h2 class="s-title">Мова для всіх<br>світоглядів</h2>
+    <p class="s-text">
+        Не релігія. Не наука. Не філософія окремо.
+        Універсальна система координат — для атеїста, віруючого, технократа.
+        Математика смислу.
+    </p>
+
+    <div class="theory-grid">
+        <div>
+            <div class="theory-formula">
+                S = f(F, Δ, Ω, λ)<br><br>
+                F — Фрактальна структура<br>
+                Δ — Напрямок / вектор<br>
+                Ω — Шаровість (рівні прояву)<br>
+                λ — Розрядність самоподібності<br>
+                &nbsp;&nbsp;&nbsp;λ→1 = резонанс<br>
+                &nbsp;&nbsp;&nbsp;λ→0 = розпад
+            </div>
+            <a href="Fractal-Vizion.pdf" target="_blank" class="pdf-link">
+                ↓ Fractal Vizion — читати PDF
+            </a>
+        </div>
+        <div class="theory-terms">
+            <div class="term">
+                <div class="term-name">Інвіксія</div>
+                <div class="term-desc">Поле гармонійних варіантів. Природний порядок. Те що має бути — і є причиною, і наслідком.</div>
+            </div>
+            <div class="term">
+                <div class="term-name">Когерентність</div>
+                <div class="term-desc">Момент кристалізації варіанта в реальність. Хоп — і вибір зроблено.</div>
+            </div>
+            <div class="term">
+                <div class="term-name">Еваксія</div>
+                <div class="term-desc">"Потім", "не зараз". Мікро-ухилення від Інвіксії. Накопичується — стає дефлексією системи.</div>
+            </div>
+            <div class="term">
+                <div class="term-name">Розїбати</div>
+                <div class="term-desc">Полюбити + трансформувати. Не знищити — переродити.</div>
+            </div>
+            <div class="term">
+                <div class="term-name">Дія</div>
+                <div class="term-desc">Єдиний інструмент переведення варіанта в реальність. Впорядкована + направлена = творення.</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PANELS -->
+<div id="panels">
+<div class="wrap">
+    <div class="s-label">YaDPanel · YaDTile</div>
+    <h2 class="s-title">Панелі та плитка —<br>вертикальні поверхні</h2>
+    <p class="s-text">
+        Стінові панелі з пластику. Фрактальні, кам'яні, органічні.
+        Кожен дизайн — окремий характер. Під замовлення, під колір, під простір.
+    </p>
+
+    <div class="panels-mosaic">
+        <div class="p-item wide" onclick="openLb(this)">
+            <img src="img/panels/panel-black-fractal.jpg" alt="Чорна фрактальна панель">
+            <div class="p-label">Fractal Black</div>
+        </div>
+        <div class="p-item" onclick="openLb(this)">
+            <img src="img/panels/panel-green-fractal.jpg" alt="Зелена фрактальна панель">
+            <div class="p-label">Fractal Green</div>
+        </div>
+        <div class="p-item" onclick="openLb(this)">
+            <img src="img/panels/panel-purple-fractal.jpg" alt="Пурпурна фрактальна панель">
+            <div class="p-label">Fractal Purple</div>
+        </div>
+        <div class="p-item" onclick="openLb(this)">
+            <img src="img/panels/panel-stone-hex.jpg" alt="Кам'яна гексагональна панель">
+            <div class="p-label">Stone Hex</div>
+        </div>
+        <div class="p-item wide" onclick="openLb(this)">
+            <img src="img/panels/panel-metal-hex.jpg" alt="Металева органічна панель">
+            <div class="p-label">Metal Organic</div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLb()">
+    <span class="lb-close">&times;</span>
+    <img id="lb-img" src="" alt="">
+</div>
+
+<div class="sep"></div>
+
+<!-- ABOUT -->
+<div id="about">
+    <div class="about-bg"></div>
+    <div class="wrap about-inner">
+        <div class="s-label">Засновник</div>
+        <h2 class="s-title">InBase Workshop<br>Буча, Україна</h2>
+
+        <div class="about-grid">
+            <div class="about-quote">
+                "Абсолютно все одно з якої точки простору-часу починати змінювати світ."
+            </div>
+            <div class="about-stats">
+                <div class="stat-row">
+                    <span class="stat-val">&gt;1M</span>
+                    <span class="stat-desc">гривень вкладено у виробництво, не в рекламу</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-val">7</span>
+                    <span class="stat-desc">напрямків трансформації від матеріального до духовного</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-val">1+ШІ</span>
+                    <span class="stat-desc">засновник + команда ШІ = весь InIn</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-text-block">
+            <p>
+                InIn будується з нуля одним засновником разом з командою штучного інтелекту.
+                Без офісу. Без корпоративної структури. Без дозволу.
+                Все що ти бачиш — зроблено руками і думками однієї людини
+                з підтримкою ШІ-архітекторів.
+            </p>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin-top:2rem;">
+            <img src="img/about/ABT-002.jpg" alt="Засновник" style="width:100%; border-radius:8px; border:1px solid var(--border); filter:brightness(0.85) grayscale(15%); aspect-ratio:3/4; object-fit:cover; object-position:top;">
+            <img src="img/about/ABT-001.jpg" alt="InBase Workshop" style="width:100%; border-radius:8px; border:1px solid var(--border); filter:brightness(0.8) grayscale(20%); aspect-ratio:3/4; object-fit:cover; object-position:top;">
+            <img src="img/about/ABT-003.jpg" alt="Контекст" style="width:100%; border-radius:8px; border:1px solid var(--border); filter:brightness(0.75) grayscale(25%); aspect-ratio:3/4; object-fit:cover; object-position:top;">
+        </div>
+    </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PROJECTS -->
+<div id="projects">
+<div class="wrap">
+    <div class="s-label">Техноорден</div>
+    <h2 class="s-title">7 напрямків<br>трансформації</h2>
+
+    <div class="projects-grid">
+        <div class="proj">
+            <span class="proj-num">01</span>
+            <div>
+                <h3>YaDStore</h3>
+                <p>Децентралізована мережа 3D-виробництва. Пластикова альтернатива масмаркету.</p>
+            </div>
+        </div>
+        <div class="proj">
+            <span class="proj-num">02</span>
+            <div>
+                <h3>Теорія Сенсів</h3>
+                <p>Універсальна філософська мова. Для всіх світоглядів без догм.</p>
+            </div>
+        </div>
+        <div class="proj">
+            <span class="proj-num">03</span>
+            <div>
+                <h3>AboutMe</h3>
+                <p>Соцмережа без посилань. Вхід тільки для тих хто всередині.</p>
+            </div>
+        </div>
+        <div class="proj">
+            <span class="proj-num">04</span>
+            <div>
+                <h3>InHome</h3>
+                <p>Дім як екзоскелет свідомості. ШІ як нервова система простору.</p>
+            </div>
+        </div>
+        <div class="proj">
+            <span class="proj-num">05</span>
+            <div>
+                <h3>InBuildIn</h3>
+                <p>Планетарна інфраструктура. Мегалітичні заводи останнього покоління.</p>
+            </div>
+        </div>
+        <div class="proj">
+            <span class="proj-num">06</span>
+            <div>
+                <h3>ВЕРА</h3>
+                <p>DIY-мережа захисту і самовідновлення. ESP32 + RPi + сенсори.</p>
+            </div>
+        </div>
+        <div class="proj">
+            <span class="proj-num">07</span>
+            <div>
+                <h3>НІКА</h3>
+                <p>Силовий вплив. Трансформація для тих хто розуміє тільки силу.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <img src="img/logo-color.png" alt="InIn">
+    <p>InIn — Innovations Infinity</p>
+    <p><a href="https://ininua.com">ininua.com</a> · Буча, Україна</p>
+    <div class="social-links">
+        <a href="https://www.instagram.com/yadstore_ua" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            @yadstore_ua
+        </a>
+    </div>
+    <p style="margin-top:0.5rem">Ніщо не зупинить ідею, час якої настав.</p>
+</footer>
+
+<script>
+    function openLb(el) {
+        const src = el.querySelector('img').src;
+        document.getElementById('lb-img').src = src;
+        document.getElementById('lb').classList.add('on');
+    }
+    function closeLb() {
+        document.getElementById('lb').classList.remove('on');
+    }
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeLb(); });
+</script>
+</body>
+</html>
