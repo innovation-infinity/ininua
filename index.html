@@ -213,7 +213,29 @@
         .prompt-text { font-family:'Courier New',monospace; font-size:0.78rem; color:rgba(0,180,220,0.6); line-height:1.7; margin-top:0.8rem; white-space:pre-wrap; }
 
         /* ── ДОНАТ ── */
-        #donate { background:var(--bg); }
+        #donate { background:var(--bg2); }
+        .donate-tabs { display:flex; gap:0.5rem; justify-content:center; margin-bottom:2rem; flex-wrap:wrap; }
+        .dtab { background:rgba(255,255,255,0.05); border:1px solid var(--border); color:var(--dim); border-radius:8px; padding:0.55rem 1.4rem; font-size:0.85rem; cursor:pointer; transition:all .2s; }
+        .dtab.active, .dtab:hover { background:rgba(0,180,220,0.12); border-color:var(--cyan); color:#fff; }
+        .donate-panel { display:none; }
+        .donate-panel.active { display:block; }
+        .donate-card { background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; max-width:520px; margin:0 auto; }
+        .donate-card .amount { font-family:monospace; font-size:1.3rem; letter-spacing:0.1em; color:var(--cyan); word-break:break-all; cursor:pointer; }
+        .donate-card .amount:hover { opacity:0.75; }
+        .donate-label { font-size:0.75rem; color:var(--dim); margin-bottom:0.3rem; }
+        .donate-copy { font-size:0.75rem; color:var(--dim); margin-top:0.4rem; }
+
+        /* Floating support button */
+        #support-fab {
+            position:fixed; bottom:1.5rem; right:1.5rem; z-index:999;
+            background:var(--accent); color:#fff;
+            border:none; border-radius:50px;
+            padding:0.65rem 1.3rem; font-size:0.8rem; font-weight:600;
+            cursor:pointer; box-shadow:0 4px 20px rgba(200,50,50,0.4);
+            text-decoration:none; display:flex; align-items:center; gap:0.4rem;
+            transition:transform .2s, opacity .2s;
+        }
+        #support-fab:hover { transform:scale(1.05); }
 
         /* ── INHOME ── */
         #inhome { }
@@ -288,6 +310,9 @@
     </style>
 </head>
 <body>
+
+<!-- FAB: Підтримати -->
+<a id="support-fab" href="#donate">❤️ Підтримати</a>
 
 <!-- NAV -->
 <nav>
@@ -1196,26 +1221,66 @@
 </div>
 </div>
 
-<!-- ═══════════════ ДОНАТ ═══════════════ -->
+<!-- ═══════════════ ПІДТРИМКА ═══════════════ -->
 <div id="donate">
-<div class="wrap" style="text-align:center; max-width:640px;">
+<div class="wrap" style="text-align:center; max-width:680px;">
     <div class="s-label">Підтримати проєкт</div>
     <h2 class="s-title">Участь,<br>не покупка</h2>
     <p class="s-text" style="margin:0 auto 2rem;">
-        Це незалежний простір сенсів, форм і досліджень.<br>
-        Тут немає інвесторів, редакторів чи чужих рамок. Є лише рух.<br>
-        Якщо тобі відгукується — ти вже частина системи.<br>
-        Якщо хочеш підтримати — це дасть можливість рухатись далі.
+        Незалежний простір сенсів, форм і досліджень. Без інвесторів і чужих рамок.<br>
+        Якщо відгукується — ти вже частина системи.<br>
+        Якщо хочеш рухатись разом — підтримай.
     </p>
-    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-bottom:2rem;">
-        <div>
-            <div class="btn btn-outline" onclick="toggleCard()" style="cursor:pointer;">💳 Показати номер картки</div>
-            <div id="card-reveal" style="display:none; margin-top:0.8rem; font-family:monospace; font-size:1.1rem; letter-spacing:0.15em; color:var(--cyan); background:rgba(0,180,220,0.06); border:1px solid rgba(0,180,220,0.2); border-radius:8px; padding:0.8rem 1.5rem;">
-                — незабаром —
+
+    <!-- Таби валют -->
+    <div class="donate-tabs">
+        <button class="dtab active" onclick="switchDonate('uah', this)">🇺🇦 UAH</button>
+        <button class="dtab" onclick="switchDonate('usd', this)">🌐 USD</button>
+        <button class="dtab" onclick="switchDonate('crypto', this)">₿ Crypto</button>
+    </div>
+
+    <!-- UAH -->
+    <div id="donate-uah" class="donate-panel active">
+        <div class="donate-card">
+            <div class="donate-label">Картка Monobank / ПриватБанк (UAH)</div>
+            <div class="amount" onclick="copyText(this)" title="Натисни щоб скопіювати">— незабаром —</div>
+            <div class="donate-copy">Отримувач: Якимчук Даниїл</div>
+            <div class="donate-copy" style="margin-top:0.8rem; font-size:0.8rem; color:var(--dim);">натисни на номер щоб скопіювати</div>
+        </div>
+    </div>
+
+    <!-- USD -->
+    <div id="donate-usd" class="donate-panel">
+        <div class="donate-card">
+            <div class="donate-label">Wise / PayPal (USD)</div>
+            <div class="amount" onclick="copyText(this)" title="Натисни щоб скопіювати">— незабаром —</div>
+            <div class="donate-copy">International transfer welcome</div>
+        </div>
+    </div>
+
+    <!-- Crypto -->
+    <div id="donate-crypto" class="donate-panel">
+        <div class="donate-card" style="text-align:left;">
+            <div style="margin-bottom:1.2rem;">
+                <div class="donate-label">Bitcoin (BTC)</div>
+                <div class="amount" onclick="copyText(this)" title="Натисни щоб скопіювати">— незабаром —</div>
+            </div>
+            <div style="margin-bottom:1.2rem;">
+                <div class="donate-label">Ethereum (ETH)</div>
+                <div class="amount" onclick="copyText(this)" title="Натисни щоб скопіювати">— незабаром —</div>
+            </div>
+            <div style="margin-bottom:1.2rem;">
+                <div class="donate-label">USDT TRC20 (Tron)</div>
+                <div class="amount" onclick="copyText(this)" title="Натисни щоб скопіювати">— незабаром —</div>
+            </div>
+            <div>
+                <div class="donate-label">USDT ERC20 (Ethereum)</div>
+                <div class="amount" onclick="copyText(this)" title="Натисни щоб скопіювати">— незабаром —</div>
             </div>
         </div>
     </div>
-    <p style="font-size:0.8rem; color:var(--dim); font-style:italic;">∞ Навіть невеликий внесок — це частина системи.</p>
+
+    <p style="font-size:0.8rem; color:var(--dim); font-style:italic; margin-top:1.5rem;">∞ Навіть невеликий внесок — це частина системи.</p>
 </div>
 </div>
 
@@ -1401,9 +1466,20 @@ function switchParable(name, btn) {
     document.getElementById('parable-' + name).classList.add('active');
     btn.classList.add('active');
 }
-function toggleCard() {
-    const el = document.getElementById('card-reveal');
-    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+function switchDonate(name, btn) {
+    document.querySelectorAll('.donate-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.dtab').forEach(b => b.classList.remove('active'));
+    document.getElementById('donate-' + name).classList.add('active');
+    btn.classList.add('active');
+}
+function copyText(el) {
+    const txt = el.textContent.trim();
+    if (txt.startsWith('—')) return;
+    navigator.clipboard.writeText(txt).then(() => {
+        const orig = el.textContent;
+        el.textContent = '✓ Скопійовано';
+        setTimeout(() => el.textContent = orig, 1500);
+    });
 }
 
 function switchTab(name, btn) {
