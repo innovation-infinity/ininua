@@ -386,10 +386,37 @@
         .social-links a:hover { color:var(--cyan); }
         .social-links svg { width:17px; height:17px; fill:currentColor; flex-shrink:0; }
 
+        /* ── BURGER ── */
+        .burger {
+            display:none; flex-direction:column; gap:5px; cursor:pointer;
+            background:none; border:none; padding:4px;
+        }
+        .burger span {
+            display:block; width:24px; height:2px;
+            background:var(--text); border-radius:2px;
+            transition:all 0.3s;
+        }
+        .burger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+        .burger.open span:nth-child(2) { opacity:0; }
+        .burger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
         /* ── RESPONSIVE ── */
         @media (max-width:768px) {
             nav { padding:0.75rem 1.2rem; }
-            .nav-links { display:none; }
+            .burger { display:flex; }
+            .nav-links {
+                display:none; flex-direction:column; gap:0;
+                position:fixed; top:54px; left:0; right:0; bottom:0;
+                background:rgba(10,10,15,0.98); backdrop-filter:blur(20px);
+                z-index:99; padding:1.5rem 2rem; overflow-y:auto;
+            }
+            .nav-links.open { display:flex; }
+            .nav-links li { border-bottom:1px solid var(--border); }
+            .nav-links a {
+                display:block; padding:1rem 0;
+                font-size:1.1rem; letter-spacing:0.08em; color:var(--text);
+            }
+            .nav-links a.active, .nav-links a:hover { color:var(--cyan); }
             .frames-intro { grid-template-columns:1fr; gap:1.5rem; }
             .frame-card-top { grid-template-columns:1fr; }
             .frame-card-top .frame-cover { max-width:300px; aspect-ratio:1; }
@@ -415,14 +442,17 @@
         <img src="img/logo-color.png" alt="InIn">
         <span>InIn</span>
     </a>
-    <ul class="nav-links">
-        <li><a href="#yadframes">YaDFrames</a></li>
-        <li><a href="#yadstore">YaDStore</a></li>
-        <li><a href="#theory">Теорія</a></li>
-        <li><a href="#parables">Притчі</a></li>
-        <li><a href="#inhome">InHome</a></li>
-        <li><a href="https://www.instagram.com/yadstore_ua" target="_blank" rel="noopener" class="nav-ig">Instagram</a></li>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="#yadframes" onclick="closeMenu()">YaDFrames</a></li>
+        <li><a href="#yadstore" onclick="closeMenu()">YaDStore</a></li>
+        <li><a href="#theory" onclick="closeMenu()">Теорія</a></li>
+        <li><a href="#parables" onclick="closeMenu()">Притчі</a></li>
+        <li><a href="#inhome" onclick="closeMenu()">InHome</a></li>
+        <li><a href="https://www.instagram.com/yadstore_ua" target="_blank" rel="noopener" class="nav-ig" onclick="closeMenu()">Instagram</a></li>
     </ul>
+    <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Меню">
+        <span></span><span></span><span></span>
+    </button>
 </nav>
 
 <!-- ═══════════════ HERO ═══════════════ -->
@@ -1186,6 +1216,20 @@
 </footer>
 
 <script>
+// ── BURGER MENU ──
+function toggleMenu() {
+    const burger = document.getElementById('burger');
+    const nav = document.getElementById('nav-links');
+    burger.classList.toggle('open');
+    nav.classList.toggle('open');
+    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+}
+function closeMenu() {
+    document.getElementById('burger').classList.remove('open');
+    document.getElementById('nav-links').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
 // ── LIGHTBOX ──
 function openLbSrc(src) {
     document.getElementById('lb-img').src = src;
