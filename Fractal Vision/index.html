@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Теорія Сенсів — Устрій Всесвіту | InIn</title>
+<style>
+  :root {
+    --bg: #080c14;
+    --bg2: #0d1220;
+    --text: #e8eaf0;
+    --dim: rgba(255,255,255,0.45);
+    --cyan: #00b4dc;
+    --border: rgba(255,255,255,0.08);
+    --accent: #c83232;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Georgia', serif; line-height:1.8; }
+
+  /* COVER */
+  .cover {
+    position:relative; width:100%; height:100vh; min-height:600px;
+    overflow:hidden; display:flex; align-items:flex-end;
+  }
+  .cover img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(0.5); }
+  .cover-content {
+    position:relative; z-index:1; padding:4rem;
+    background:linear-gradient(to top, rgba(8,12,20,0.98) 0%, rgba(8,12,20,0.4) 60%, transparent 100%);
+    width:100%;
+  }
+  .cover-label { font-size:0.72rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--cyan); margin-bottom:1rem; }
+  .cover-title { font-size:clamp(2rem,5vw,3.5rem); font-weight:300; line-height:1.2; margin-bottom:1.5rem; }
+  .cover-title span { color:var(--cyan); }
+  .cover-intro { max-width:700px; color:rgba(255,255,255,0.6); font-size:1rem; line-height:1.9; font-style:italic; }
+  .cover-btn {
+    margin-top:2rem; display:inline-block; padding:0.6rem 1.6rem;
+    border:1px solid rgba(0,180,220,0.4); border-radius:6px; color:var(--cyan);
+    font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase;
+    cursor:pointer; background:rgba(0,180,220,0.05); text-decoration:none;
+    transition:all .2s;
+  }
+  .cover-btn:hover { background:rgba(0,180,220,0.15); }
+
+  /* BLOCKS */
+  .blocks { max-width:1100px; margin:0 auto; padding:4rem 2rem; }
+
+  .block {
+    display:grid; grid-template-columns:1fr 1fr; gap:4rem;
+    align-items:center; margin-bottom:6rem; padding-bottom:6rem;
+    border-bottom:1px solid var(--border);
+  }
+  .block:last-child { border-bottom:none; }
+  .block.reverse { direction:rtl; }
+  .block.reverse > * { direction:ltr; }
+
+  .block-visual img {
+    width:100%; border-radius:12px; border:1px solid var(--border);
+    filter:brightness(0.85); transition:filter .3s;
+  }
+  .block-visual img:hover { filter:brightness(1); }
+
+  .block-num {
+    font-size:0.65rem; letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--cyan); opacity:0.6; margin-bottom:0.8rem;
+  }
+  .block-icon { font-size:1.8rem; margin-bottom:1rem; }
+  .block-title { font-size:1.5rem; font-weight:400; margin-bottom:1.5rem; line-height:1.3; }
+  .block-text { color:var(--dim); font-size:0.95rem; line-height:1.95; }
+  .block-text p { margin-bottom:1rem; }
+  .block-text strong { color:var(--text); font-weight:600; }
+
+  /* DIVIDER IMAGE (3.1) */
+  .divider-img {
+    margin:0 auto 6rem;
+    max-width:700px; text-align:center;
+  }
+  .divider-img img {
+    width:100%; border-radius:12px; border:1px solid var(--border);
+    filter:brightness(0.8);
+  }
+
+  /* CONCLUSION */
+  .conclusion {
+    background:var(--bg2); border:1px solid var(--border);
+    border-radius:16px; padding:3rem 4rem; margin-bottom:4rem;
+    text-align:center;
+  }
+  .conclusion p { color:var(--dim); font-size:1rem; line-height:2; margin-bottom:1rem; font-style:italic; }
+  .conclusion p:last-child { margin-bottom:0; color:rgba(255,255,255,0.3); font-size:0.8rem; letter-spacing:0.1em; }
+
+  /* HASHTAGS */
+  .tags { text-align:center; padding:2rem; color:rgba(0,180,220,0.3); font-size:0.75rem; letter-spacing:0.05em; line-height:2; }
+
+  /* PRINT */
+  @media print {
+    .cover-btn { display:none; }
+    .cover { height:auto; min-height:400px; }
+    body { background:#fff; color:#000; }
+    .block-text { color:#333; }
+  }
+
+  /* MOBILE */
+  @media (max-width:768px) {
+    .block { grid-template-columns:1fr; gap:2rem; }
+    .block.reverse { direction:ltr; }
+    .cover-content { padding:2rem; }
+    .blocks { padding:2rem 1rem; }
+    .conclusion { padding:2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ОБКЛАДИНКА -->
+<div class="cover">
+  <img src="Теорія сенсів обгортка.jpg" alt="Теорія Сенсів">
+  <div class="cover-content">
+    <div class="cover-label">InIn · Теорія Сенсів</div>
+    <h1 class="cover-title">Устрій<br><span>Всесвіту</span></h1>
+    <p class="cover-intro">
+      Усе, що існує, — не хаос, а фрактальна структура, де кожен шар буття взаємодіє з іншими через сенс.
+      Простір, час, дія, рух — це лише різні грані єдиного калейдоскопа.
+      Пов'язаного нитями що ініціюють поле потенціалу у момент когерентності.
+      Кришталізації області можливого, в область фактичного.
+    </p>
+    <a class="cover-btn" onclick="window.print()">Зберегти як PDF</a>
+  </div>
+</div>
+
+<!-- БЛОКИ -->
+<div class="blocks">
+
+  <!-- 1 -->
+  <div class="block">
+    <div class="block-text">
+      <div class="block-num">Блок 01</div>
+      <div class="block-icon">🧩</div>
+      <h2 class="block-title">Фрактальна логіка</h2>
+      <p>Фрактальна система Всесвіту складається з шарів — <strong>Простору, Часу, Дії й Сенсу</strong>. Вони не окремі — а вплетені у взаємну мережу, як ниті одного живого організму.</p>
+      <p>Момент когерентності — це мить, коли всі шари сходяться в одній точці, і реальність проявляє себе.</p>
+    </div>
+    <div class="block-visual"><img src="1.jpg" alt="Фрактальна логіка"></div>
+  </div>
+
+  <!-- 2 -->
+  <div class="block reverse">
+    <div class="block-text">
+      <div class="block-num">Блок 02</div>
+      <div class="block-icon">⚙️</div>
+      <h2 class="block-title">Механіка шарів</h2>
+      <p>Кожен шар має свою функцію:</p>
+      <p><strong>Простір</strong> — полотно матерії.<br>
+      <strong>Час</strong> — мастило між подіями.<br>
+      <strong>Дія</strong> — сила руху.<br>
+      <strong>Сенс</strong> — механізм, що з'єднує їх.<br>
+      <strong>Дух</strong> — ключ, який відкриває усвідомлення.</p>
+    </div>
+    <div class="block-visual"><img src="2.jpg" alt="Механіка шарів"></div>
+  </div>
+
+  <!-- 3 -->
+  <div class="block">
+    <div class="block-text">
+      <div class="block-num">Блок 03</div>
+      <div class="block-icon">💫</div>
+      <h2 class="block-title">Динаміка взаємодій</h2>
+      <p>Усе у світі рухається через взаємодію. Гравітація, електромагнетизм, сильна та слабка взаємодії — це лише прояви глибших рушійних шарів.</p>
+      <p>Але є ще одна сила — <strong>свідомий рух, воля</strong>. Коли дія стає осмисленою, вона виходить за межі фізики — і народжується сенс.</p>
+      <p>Воля — це фрактальний імпульс, який поєднує енергію з наміром.</p>
+    </div>
+    <div class="block-visual"><img src="3.jpg" alt="Динаміка взаємодій"></div>
+  </div>
+
+  <!-- 3.1 — роздільник -->
+  <div class="divider-img">
+    <img src="3.1.jpg" alt="">
+  </div>
+
+  <!-- 4 -->
+  <div class="block reverse">
+    <div class="block-text">
+      <div class="block-num">Блок 04</div>
+      <div class="block-icon">👁</div>
+      <h2 class="block-title">Погляд і момент когерентності</h2>
+      <p>Дух — це не форма, а усвідомлення. Коли спостерігач дивиться — <strong>Всесвіт бачить себе</strong>.</p>
+      <p>У мить погляду хаос потенціалу згортається у форму — виникає сенс, подія, життя. Це і є момент когерентності.</p>
+    </div>
+    <div class="block-visual"><img src="4.jpg" alt="Погляд і когерентність"></div>
+  </div>
+
+  <!-- 5 -->
+  <div class="block">
+    <div class="block-text">
+      <div class="block-num">Блок 05</div>
+      <div class="block-icon">🕰</div>
+      <h2 class="block-title">Фрактальні шари Всесвіту</h2>
+      <p>У глибині все з'єднане фрактальними нитями.</p>
+      <p><strong>Простір</strong> утворює структуру, <strong>час</strong> — дозволяє їй рухатись, <strong>дія</strong> — змінює стан, а <strong>сенс</strong> — зв'язує все у єдиний пульс живого світу.</p>
+    </div>
+    <div class="block-visual"><img src="5.jpg" alt="Фрактальні шари"></div>
+  </div>
+
+  <!-- 6 -->
+  <div class="block reverse">
+    <div class="block-text">
+      <div class="block-num">Блок 06</div>
+      <div class="block-icon">🌌</div>
+      <h2 class="block-title">Матерія, що мислить</h2>
+      <p>Наш Простір — тривимірна структура, але він не статичний. Він дихає, гнеться, перекручується під впливом сил і думок.</p>
+      <p>Навіть галактики — це <strong>вузли свідомої матерії</strong>, що формують узор фрактальної тканини.</p>
+    </div>
+    <div class="block-visual"><img src="6.jpg" alt="Матерія що мислить"></div>
+  </div>
+
+  <!-- 7 -->
+  <div class="block">
+    <div class="block-text">
+      <div class="block-num">Блок 07</div>
+      <div class="block-icon">🕳</div>
+      <h2 class="block-title">Пакет із Всесвітом</h2>
+      <p>Гравітаційні вузли — це місця, де Простір сам себе стягує, як зав'язаний пакет.</p>
+      <p>Чорні діри — <strong>не кінець, а перехід</strong> у нову складку буття. Там матерія перемелюється в пил потенціалу — з якого народжуються нові світи.</p>
+      <p>Це нескінченний цикл: творення через згортання, життя через смерть, порядок через хаос.</p>
+    </div>
+    <div class="block-visual"><img src="7.jpg" alt="Пакет із Всесвітом"></div>
+  </div>
+
+  <!-- ВИСНОВОК -->
+  <div class="conclusion">
+    <p>Всесвіт — це не випадковий спалах.</p>
+    <p>Це система сенсів, що самопідтримується через рух, дію і спостереження.</p>
+    <p>Ми — частини цього фрактального механізму, і водночас його двигуни.</p>
+    <p>Кожна думка, дія й намір — це нитка, що натягує саму тканину реальності.</p>
+    <p>— Даниїл Якимчук · InIn · ininua.com</p>
+  </div>
+
+  <div class="tags">
+    #ТеоріяСенсів #ФрактальнаЛогіка #ІнІн #Invixia #КалейдоскопУсвідомлення #ФрактальнийВсесвіт
+  </div>
+
+</div>
+</body>
+</html>
