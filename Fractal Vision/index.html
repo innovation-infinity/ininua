@@ -22,7 +22,7 @@
     position:relative; width:100%; height:100vh; min-height:600px;
     overflow:hidden; display:flex; align-items:flex-end;
   }
-  .cover img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(0.5); }
+  .cover img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(0.45); }
   .cover-content {
     position:relative; z-index:1; padding:4rem;
     background:linear-gradient(to top, rgba(8,12,20,0.98) 0%, rgba(8,12,20,0.4) 60%, transparent 100%);
@@ -40,6 +40,15 @@
     transition:all .2s;
   }
   .cover-btn:hover { background:rgba(0,180,220,0.15); }
+
+  /* NAV */
+  .back-nav {
+    position:fixed; top:1.2rem; left:1.5rem; z-index:100;
+    color:var(--dim); text-decoration:none; font-size:0.78rem;
+    letter-spacing:0.1em; display:flex; align-items:center; gap:0.4rem;
+    transition:color .2s;
+  }
+  .back-nav:hover { color:var(--cyan); }
 
   /* BLOCKS */
   .blocks { max-width:1100px; margin:0 auto; padding:4rem 2rem; }
@@ -59,24 +68,53 @@
   }
   .block-visual img:hover { filter:brightness(1); }
 
-  .block-num {
-    font-size:0.65rem; letter-spacing:0.3em; text-transform:uppercase;
-    color:var(--cyan); opacity:0.6; margin-bottom:0.8rem;
-  }
+  .block-num { font-size:0.65rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--cyan); opacity:0.6; margin-bottom:0.8rem; }
   .block-icon { font-size:1.8rem; margin-bottom:1rem; }
   .block-title { font-size:1.5rem; font-weight:400; margin-bottom:1.5rem; line-height:1.3; }
   .block-text { color:var(--dim); font-size:0.95rem; line-height:1.95; }
   .block-text p { margin-bottom:1rem; }
   .block-text strong { color:var(--text); font-weight:600; }
+  .block-text em { color:rgba(0,180,220,0.7); font-style:italic; }
 
-  /* DIVIDER IMAGE (3.1) */
-  .divider-img {
-    margin:0 auto 6rem;
-    max-width:700px; text-align:center;
+  /* DIVIDER IMAGE */
+  .divider-img { margin:0 auto 6rem; max-width:700px; text-align:center; }
+  .divider-img img { width:100%; border-radius:12px; border:1px solid var(--border); filter:brightness(0.8); }
+
+  /* QUOTE BLOCK */
+  .quote-block {
+    border-left:2px solid var(--cyan); padding:1.5rem 2rem;
+    margin:2rem 0; background:rgba(0,180,220,0.03); border-radius:0 8px 8px 0;
   }
-  .divider-img img {
-    width:100%; border-radius:12px; border:1px solid var(--border);
-    filter:brightness(0.8);
+  .quote-block p { color:rgba(255,255,255,0.65); font-style:italic; font-size:1rem; line-height:1.9; }
+  .quote-block cite { font-size:0.75rem; color:var(--dim); letter-spacing:0.1em; margin-top:0.8rem; display:block; }
+
+  /* СЛОВНИК */
+  .glossary { max-width:1100px; margin:0 auto; padding:0 2rem 6rem; }
+  .glossary-title {
+    font-size:0.68rem; letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--cyan); margin-bottom:3rem; padding-top:4rem;
+    border-top:1px solid var(--border);
+  }
+  .term-block { margin-bottom:3rem; padding-bottom:3rem; border-bottom:1px solid var(--border); }
+  .term-block:last-child { border-bottom:none; }
+  .term-name {
+    font-size:1.4rem; font-weight:300; color:var(--text);
+    letter-spacing:0.08em; margin-bottom:0.6rem;
+  }
+  .term-name span { color:var(--cyan); }
+  .term-body { color:var(--dim); font-size:0.93rem; line-height:1.9; }
+  .term-body p { margin-bottom:0.8rem; }
+  .term-analogy {
+    margin-top:1.2rem; padding:1rem 1.4rem;
+    background:rgba(255,255,255,0.02); border:1px solid var(--border);
+    border-radius:8px; font-size:0.87rem; color:rgba(255,255,255,0.4);
+    font-style:italic;
+  }
+  .term-analogy strong { color:rgba(255,255,255,0.6); font-style:normal; }
+  .term-memorial {
+    margin-top:1rem; padding:1rem 1.4rem;
+    background:rgba(200,50,50,0.05); border:1px solid rgba(200,50,50,0.15);
+    border-radius:8px; font-size:0.85rem; color:rgba(200,100,100,0.7);
   }
 
   /* CONCLUSION */
@@ -88,16 +126,16 @@
   .conclusion p { color:var(--dim); font-size:1rem; line-height:2; margin-bottom:1rem; font-style:italic; }
   .conclusion p:last-child { margin-bottom:0; color:rgba(255,255,255,0.3); font-size:0.8rem; letter-spacing:0.1em; }
 
-  /* HASHTAGS */
-  .tags { text-align:center; padding:2rem; color:rgba(0,180,220,0.3); font-size:0.75rem; letter-spacing:0.05em; line-height:2; }
-
-  /* PRINT */
-  @media print {
-    .cover-btn { display:none; }
-    .cover { height:auto; min-height:400px; }
-    body { background:#fff; color:#000; }
-    .block-text { color:#333; }
+  /* FORMULA */
+  .formula-box {
+    font-family:'Courier New', monospace; font-size:1rem;
+    color:var(--cyan); background:rgba(0,180,220,0.04);
+    border:1px solid rgba(0,180,220,0.15); border-radius:8px;
+    padding:1.5rem; line-height:2.2; margin:1.5rem 0;
   }
+
+  /* TAGS */
+  .tags { text-align:center; padding:2rem; color:rgba(0,180,220,0.3); font-size:0.75rem; letter-spacing:0.05em; line-height:2; }
 
   /* MOBILE */
   @media (max-width:768px) {
@@ -105,25 +143,28 @@
     .block.reverse { direction:ltr; }
     .cover-content { padding:2rem; }
     .blocks { padding:2rem 1rem; }
+    .glossary { padding:0 1rem 4rem; }
     .conclusion { padding:2rem; }
   }
 </style>
 </head>
 <body>
 
+<a class="back-nav" href="../index.html">← ininua.com</a>
+
 <!-- ОБКЛАДИНКА -->
 <div class="cover">
   <img src="Теорія сенсів обгортка.jpg" alt="Теорія Сенсів">
   <div class="cover-content">
-    <div class="cover-label">InIn · Теорія Сенсів</div>
+    <div class="cover-label">InIn · Теорія Сенсів · Даниїл Якимчук</div>
     <h1 class="cover-title">Устрій<br><span>Всесвіту</span></h1>
     <p class="cover-intro">
       Усе, що існує, — не хаос, а фрактальна структура, де кожен шар буття взаємодіє з іншими через сенс.
       Простір, час, дія, рух — це лише різні грані єдиного калейдоскопа.
       Пов'язаного нитями що ініціюють поле потенціалу у момент когерентності.
-      Кришталізації області можливого, в область фактичного.
+      Кристалізації області можливого — в область фактичного.
     </p>
-    <a class="cover-btn" onclick="window.print()">Зберегти як PDF</a>
+    <a class="cover-btn" onclick="window.print()">↓ Зберегти як PDF</a>
   </div>
 </div>
 
@@ -138,6 +179,7 @@
       <h2 class="block-title">Фрактальна логіка</h2>
       <p>Фрактальна система Всесвіту складається з шарів — <strong>Простору, Часу, Дії й Сенсу</strong>. Вони не окремі — а вплетені у взаємну мережу, як ниті одного живого організму.</p>
       <p>Момент когерентності — це мить, коли всі шари сходяться в одній точці, і реальність проявляє себе.</p>
+      <p>Ми, як живі та розумні істоти, живемо насамперед у світі <strong>явищ і сенсів</strong> — не у світі фізичних об'єктів. Сенси — це те що робить із загального шуму щось власне і важливе саме для мене.</p>
     </div>
     <div class="block-visual"><img src="1.jpg" alt="Фрактальна логіка"></div>
   </div>
@@ -154,6 +196,7 @@
       <strong>Дія</strong> — сила руху.<br>
       <strong>Сенс</strong> — механізм, що з'єднує їх.<br>
       <strong>Дух</strong> — ключ, який відкриває усвідомлення.</p>
+      <p>Ми — набір маркерів, які створюють свій фільтр — свою реальність. Через цей фільтр відбувається творення нового у Всесвіті.</p>
     </div>
     <div class="block-visual"><img src="2.jpg" alt="Механіка шарів"></div>
   </div>
@@ -184,6 +227,10 @@
       <h2 class="block-title">Погляд і момент когерентності</h2>
       <p>Дух — це не форма, а усвідомлення. Коли спостерігач дивиться — <strong>Всесвіт бачить себе</strong>.</p>
       <p>У мить погляду хаос потенціалу згортається у форму — виникає сенс, подія, життя. Це і є момент когерентності.</p>
+      <div class="quote-block">
+        <p>Як зварити холодець у порожній каструлі. Вариш і вариш — нічого не видно. А потім дивишся — і там вже застиглий холодець. Ніхто не бачив момент переходу, але він стався.</p>
+        <cite>— Аналогія Даниїла Якимчука</cite>
+      </div>
     </div>
     <div class="block-visual"><img src="4.jpg" alt="Погляд і когерентність"></div>
   </div>
@@ -196,6 +243,7 @@
       <h2 class="block-title">Фрактальні шари Всесвіту</h2>
       <p>У глибині все з'єднане фрактальними нитями.</p>
       <p><strong>Простір</strong> утворює структуру, <strong>час</strong> — дозволяє їй рухатись, <strong>дія</strong> — змінює стан, а <strong>сенс</strong> — зв'язує все у єдиний пульс живого світу.</p>
+      <p>Те що відбувається на рівні атома — відбувається на рівні галактики і на рівні людського вибору. <em>Одна логіка, різні масштаби.</em></p>
     </div>
     <div class="block-visual"><img src="5.jpg" alt="Фрактальні шари"></div>
   </div>
@@ -225,19 +273,154 @@
     <div class="block-visual"><img src="7.jpg" alt="Пакет із Всесвітом"></div>
   </div>
 
+  <!-- 8 — ІНВІКСІЯ як Потік -->
+  <div class="block reverse">
+    <div class="block-text">
+      <div class="block-num">Блок 08</div>
+      <div class="block-icon">🌊</div>
+      <h2 class="block-title">Інвіксія — живий потік</h2>
+      <p>Ви всі знаєте це відчуття. Що щось, щось саме те — незабаром воно станеться. Це не марновірство. Це <strong>резонанс з Інвіксією</strong>.</p>
+      <p>Інвіксія — це не статичне поле. Це <strong>живий потік</strong> гармонійних варіантів. Те що має бути — органічно, не детерміновано. Причина і наслідок і мета — одночасно.</p>
+      <p>Дії в резонансі з потоком підсилюють його. Дії проти — не зупиняють, але створюють турбулентність.</p>
+      <p><strong>Коливання кожного — паливо потоку.</strong> Кожен Погляд, кожна реалізація, навіть опір — енергія яка живить Інвіксію. Потік існує тому що кожен у ньому коливається.</p>
+    </div>
+    <div class="block-visual"><img src="D974682AE6E648BCBEE6051A1923558B.jpg" alt="Інвіксія"></div>
+  </div>
+
+  <!-- 9 — МИНУЛЕ як Інструмент -->
+  <div class="block">
+    <div class="block-text">
+      <div class="block-num">Блок 09</div>
+      <div class="block-icon">🗝</div>
+      <h2 class="block-title">Минуле як Інструмент</h2>
+      <p>Нема ніякого "нашого" минулого. Є просто <strong>Минуле</strong> — невразливе як факт, варіативне як сенс.</p>
+      <p>Минуле людини — це поле прожитих вірогідностей в реальності розумної істоти. Воно існує виключно в її реальності і з Об'єктивним Всесвітом має лише відлуння.</p>
+      <p>Але саме тут — сила. <strong>Полігони спогадів можна перезаповнювати новими сенсами.</strong> Не змінюючи факт — змінюючи те що він означає.</p>
+      <p>Мінуле стає Інструментом коли ти розумієш його фрактальну природу: воно не лінійне, воно — жива структура смислів з якою ти взаємодієш зараз.</p>
+    </div>
+    <div class="block-visual" style="display:flex;align-items:center;justify-content:center;">
+      <div style="font-size:8rem;opacity:0.08;">∞</div>
+    </div>
+  </div>
+
+  <!-- 10 — НИТКИ і Λ -->
+  <div class="block reverse">
+    <div class="block-text">
+      <div class="block-num">Блок 10</div>
+      <div class="block-icon">🕸</div>
+      <h2 class="block-title">Нитки сенсів — жива константа</h2>
+      <p>Поле сенсів — це не дроти. Дріт передає сигнал в одному напрямку. <strong>Нитка вібрує в обидва боки одночасно</strong> і змінює все до чого торкається.</p>
+      <p>Є жива константа <em>Λ</em> — не числова, а структурна. Вона присутня в кожному погляді, кожній ідеї, кожній формулі. Але вона не стала — вона коригує і впливає через проекції.</p>
+      <p>Рівні охоплення Λ:</p>
+      <p><strong>Планетарна</strong> — гравітація. Всі хто її побачив несуть однакову Λ.<br>
+      <strong>Групова</strong> — смерть близької людини. Тільки ті хто любив.<br>
+      <strong>Особиста</strong> — кола куплена сьогодні. Тільки він, тільки зараз.</p>
+      <p>Погляд кожного реалізує дійсність враховуючи всі рівні одночасно — але не усвідомлено. Засвічена нитка лишається в полі. Інші можуть до неї доторкнутись — через мистецтво, розмову, погляд — і щось в них резонує без слів.</p>
+    </div>
+    <div class="block-visual" style="display:flex;align-items:center;justify-content:center;">
+      <div style="font-size:7rem;opacity:0.06;">Λ</div>
+    </div>
+  </div>
+
   <!-- ВИСНОВОК -->
   <div class="conclusion">
     <p>Всесвіт — це не випадковий спалах.</p>
     <p>Це система сенсів, що самопідтримується через рух, дію і спостереження.</p>
     <p>Ми — частини цього фрактального механізму, і водночас його двигуни.</p>
     <p>Кожна думка, дія й намір — це нитка, що натягує саму тканину реальності.</p>
+    <p>Суб'єктивна реальність кожного, стикаючись з об'єктивним Всесвітом, реалізується в дійсності.</p>
     <p>— Даниїл Якимчук · InIn · ininua.com</p>
   </div>
 
-  <div class="tags">
-    #ТеоріяСенсів #ФрактальнаЛогіка #ІнІн #Invixia #КалейдоскопУсвідомлення #ФрактальнийВсесвіт
+</div>
+
+<!-- СЛОВНИК -->
+<div class="glossary">
+  <div class="glossary-title">Словник Теорії Сенсів</div>
+
+  <div class="term-block">
+    <div class="term-name"><span>Інвіксія</span></div>
+    <div class="term-body">
+      <p>Поле гармонійних варіантів що має бути. Природній порядок. Не детерміноване, а органічне. Це і причина, і наслідок, і мета вічного фрактального циклу.</p>
+      <p>Живий потік — не статичне поле. Коливання кожного є паливом потоку.</p>
+    </div>
+  </div>
+
+  <div class="term-block">
+    <div class="term-name"><span>Когерентність</span></div>
+    <div class="term-body">
+      <p>Момент кристалізації варіанта в реальність. "Хоп — підсікання рибини" з хмари можливостей.</p>
+      <div class="term-analogy"><strong>Аналогія:</strong> Як зварити холодець у порожній каструлі. Вариш і вариш — нічого не видно. А потім дивишся — і там вже застиглий холодець. Ніхто не бачив момент переходу, але він стався.</div>
+    </div>
+  </div>
+
+  <div class="term-block">
+    <div class="term-name"><span>Інтесенція</span></div>
+    <div class="term-body">
+      <p>Фаза ДО вибору. Полігони ще порожні. Буйство варіантів. Те що мерехтить до когерентності.</p>
+      <div class="term-analogy"><strong>Аналогія:</strong> Будівля Протосів у StarCraft 2. Ще не побудована — але вже є. Мерехтячий маревом міраж що постійно змінює образи. Кожному показує щось своє. Форма ще не зафіксована — вона пульсує між варіантами.</div>
+    </div>
+  </div>
+
+  <div class="term-block">
+    <div class="term-name"><span>Еваксія</span></div>
+    <div class="term-body">
+      <p>Мікро-ухилення від Інвіксії. "Потім", "не зараз", "яка різниця". НЕ бездіяльність — дія в бік від Інвіксії.</p>
+      <div class="term-analogy"><strong>Аналогія (Dota 1):</strong> Тобі треба тримати лінію проти складного опонента — стримувати, фармити, чекати. А ти замість цього йдеш в ліс фармити мобів. Даєш опоненту перевагу. Здається дрібниця — але це Еваксія.</div>
+    </div>
+  </div>
+
+  <div class="term-block">
+    <div class="term-name"><span>Дефлексія</span></div>
+    <div class="term-body">
+      <p>Системний відхил. Накопичена Еваксія багатьох. Вже "не там де мали б бути".</p>
+      <div class="term-analogy"><strong>Аналогія:</strong> Коли всі пішли в ліс. Якщо кожен гравець команди зробив свою Еваксію — вся система в стані Дефлексії. Структура вже прямує не туди.</div>
+    </div>
+  </div>
+
+  <div class="term-block">
+    <div class="term-name"><span>Інфіксія</span></div>
+    <div class="term-body">
+      <p>Зафіксована людино-дією Інвіксія. Невідворотня дія незалежно від ціни.</p>
+      <div class="term-memorial">Названо на честь Сергія Зайцева — побратима, загиблого на фронті. Серьога часто казав умовним підлеглим: <strong>"Умри но сдєлай, солдат."</strong> Це і є Інфіксія: дія яка ПОВИННА бути виконана. Ціна не рахується.</div>
+      <div class="term-analogy"><strong>Аналогія (League of Legends):</strong> В стані Дефлексії команди — Інфіксія: іти вбити Барона і виграти катку. Ціною всього — але зробити те що змінює все.</div>
+    </div>
+  </div>
+
+  <div class="term-block">
+    <div class="term-name"><span>Дія</span></div>
+    <div class="term-body">
+      <p>Єдиний інструмент переведення варіанта в реальність. Впорядкована + направлена = творення.</p>
+    </div>
+  </div>
+
+  <div class="term-block">
+    <div class="term-name"><span>Полігони</span></div>
+    <div class="term-body">
+      <p>Структури що заповнюються абстрактними сенсами уяви. Основа YaDesign.</p>
+      <p>Минуле = інструмент: невразливе як факт, варіативне як сенс. Можна перезаповнювати полігони спогадів новими сенсами — не змінюючи факт, змінюючи те що він означає.</p>
+    </div>
+  </div>
+
+  <div class="term-block">
+    <div class="term-name"><span>Розїбати</span></div>
+    <div class="term-body">
+      <p>Полюбити + трансформувати. НЕ знищити — переродити. Найвищий акт творення.</p>
+    </div>
+  </div>
+
+  <div class="term-block">
+    <div class="term-name"><span>Мораль</span></div>
+    <div class="term-body">
+      <p>Шлейф безкінечних правильних виборів. Компас Інвіксії.</p>
+    </div>
   </div>
 
 </div>
+
+<div class="tags">
+  #ТеоріяСенсів #ФрактальнаЛогіка #ІнІн #Invixia #Інвіксія #Когерентність #Інфіксія #КалейдоскопУсвідомлення
+</div>
+
 </body>
 </html>
