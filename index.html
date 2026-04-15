@@ -138,6 +138,42 @@
         }
         .frame-cover:hover { filter:brightness(1); }
 
+        /* ── FRAME VIDEO STRIP ── */
+        .frame-cover-block { display:flex; flex-direction:column; gap:0.5rem; }
+        .frame-vid-strip {
+            display:flex; gap:0.4rem; overflow-x:auto;
+            scrollbar-width:none;
+        }
+        .frame-vid-strip::-webkit-scrollbar { display:none; }
+        .vid-thumb {
+            position:relative; flex:0 0 auto;
+            width:72px; height:72px;
+            border-radius:6px; overflow:visible;
+            border:1px solid var(--border); cursor:pointer;
+            background:#000;
+        }
+        .vid-thumb video {
+            width:72px; height:72px;
+            object-fit:cover; border-radius:6px;
+            display:block; pointer-events:none;
+        }
+        /* floating preview */
+        .vid-thumb .vid-preview {
+            display:none;
+            position:absolute; bottom:calc(100% + 8px); left:50%;
+            transform:translateX(-50%);
+            width:200px; border-radius:10px; overflow:hidden;
+            border:1px solid rgba(0,180,220,0.35);
+            box-shadow:0 8px 32px rgba(0,0,0,0.7);
+            z-index:999; pointer-events:none;
+        }
+        .vid-thumb .vid-preview video {
+            width:200px; height:auto; aspect-ratio:9/16;
+            object-fit:cover; border-radius:0;
+        }
+        .vid-thumb:hover .vid-preview { display:block; }
+        .vid-thumb:hover { border-color:rgba(0,180,220,0.5); }
+
         /* Gallery grid */
         .frame-gallery { }
         .gallery-label { font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--dim); margin-bottom:1rem; }
@@ -564,33 +600,38 @@
                     <a href="https://www.instagram.com/yadstore_ua" target="_blank" class="btn btn-outline">Instagram</a>
                 </div>
             </div>
-            <img src="Ka-Exp/Ka-Exp_1.jpg" alt="Ка-Експ" class="frame-cover" onclick="openLbSrc(this.src)">
-        </div>
-        <div class="frame-gallery">
-            <div class="vid-section">
-                <div class="gallery-label">Відео — Ка-Експ</div>
-                <div class="vid-row">
-                    <div class="vid-item">
+            <div class="frame-cover-block">
+                <img src="Ka-Exp/Ka-Exp_1.jpg" alt="Ка-Експ" class="frame-cover" onclick="openLbSrc(this.src)">
+                <div class="frame-vid-strip">
+                    <div class="vid-thumb">
                         <video src="Ka-Exp/vid/motion2Fast_Cinematic_animation_of_a_custom_artistic_frame_YaD_0.mp4" autoplay muted loop playsinline></video>
+                        <div class="vid-preview"><video src="Ka-Exp/vid/motion2Fast_Cinematic_animation_of_a_custom_artistic_frame_YaD_0.mp4" autoplay muted loop playsinline></video></div>
                     </div>
-                    <div class="vid-item">
+                    <div class="vid-thumb">
                         <video src="Ka-Exp/vid/motion2Fast_Cinematic_product_animation_of_a_custom_artistic_p_0.mp4" autoplay muted loop playsinline></video>
+                        <div class="vid-preview"><video src="Ka-Exp/vid/motion2Fast_Cinematic_product_animation_of_a_custom_artistic_p_0.mp4" autoplay muted loop playsinline></video></div>
                     </div>
-                    <div class="vid-item">
+                    <div class="vid-thumb">
                         <video src="Ka-Exp/vid/motion2Fast_Macro_cinematic_animation_of_a_custom_artistic_fra_0.mp4" autoplay muted loop playsinline></video>
+                        <div class="vid-preview"><video src="Ka-Exp/vid/motion2Fast_Macro_cinematic_animation_of_a_custom_artistic_fra_0.mp4" autoplay muted loop playsinline></video></div>
                     </div>
-                    <div class="vid-item">
+                    <div class="vid-thumb">
                         <video src="Ka-Exp/vid/motion2Fast_Macro_cinematic_animation_of_a_custom_artistic_fra_0 (1).mp4" autoplay muted loop playsinline></video>
+                        <div class="vid-preview"><video src="Ka-Exp/vid/motion2Fast_Macro_cinematic_animation_of_a_custom_artistic_fra_0 (1).mp4" autoplay muted loop playsinline></video></div>
                     </div>
-                    <div class="vid-item">
+                    <div class="vid-thumb">
                         <video src="Ka-Exp/vid/ltxv-2.3-pro_Зроби_наче_перший_фрейм_починає_розмножува-0.mp4" autoplay muted loop playsinline></video>
+                        <div class="vid-preview"><video src="Ka-Exp/vid/ltxv-2.3-pro_Зроби_наче_перший_фрейм_починає_розмножува-0.mp4" autoplay muted loop playsinline></video></div>
                     </div>
-                    <div class="vid-item">
+                    <div class="vid-thumb">
                         <video src="Ka-Exp/vid/ltxv-2.3-pro_Зроби_наче_стартовий_фрейм_люди_починають_о-0.mp4" autoplay muted loop playsinline></video>
+                        <div class="vid-preview"><video src="Ka-Exp/vid/ltxv-2.3-pro_Зроби_наче_стартовий_фрейм_люди_починають_о-0.mp4" autoplay muted loop playsinline></video></div>
                     </div>
                 </div>
             </div>
-            <div class="gallery-label">Фото — Ка-Експ</div>
+        </div>
+        <div class="frame-gallery">
+            <div class="gallery-label">Медіатека — Ка-Експ</div>
             <div class="gallery-grid" id="gal-kaexp"></div>
             <div class="gal-more" id="more-kaexp" onclick="loadMoreKaExp()" style="display:none">Показати більше фото</div>
         </div>
@@ -641,18 +682,18 @@
                     <a href="https://www.instagram.com/yadstore_ua" target="_blank" class="btn btn-outline">Instagram</a>
                 </div>
             </div>
-            <img src="Долоні/nano-banana-2_two_realistic_hands_holding_a_small_photo_frame_same_composition_as_reference_ha-0 (1).jpg" alt="Долоні — Фрейми Руки" class="frame-cover" onclick="openLbSrc(this.src)">
-        </div>
-        <div class="frame-gallery">
-            <div class="vid-section">
-                <div class="gallery-label">Відео — Долоні</div>
-                <div class="vid-row">
-                    <div class="vid-item">
+            <div class="frame-cover-block">
+                <img src="Долоні/nano-banana-2_two_realistic_hands_holding_a_small_photo_frame_same_composition_as_reference_ha-0 (1).jpg" alt="Долоні — Фрейми Руки" class="frame-cover" onclick="openLbSrc(this.src)">
+                <div class="frame-vid-strip">
+                    <div class="vid-thumb">
                         <video src="Долоні/seedance-1.0-lite_same_composition_same_frame_held_by_hands_cinematic_transformation_sequence_cle.mp4" autoplay muted loop playsinline></video>
+                        <div class="vid-preview"><video src="Долоні/seedance-1.0-lite_same_composition_same_frame_held_by_hands_cinematic_transformation_sequence_cle.mp4" autoplay muted loop playsinline></video></div>
                     </div>
                 </div>
             </div>
-            <div class="gallery-label">Фото — Долоні · Фрейми Руки</div>
+        </div>
+        <div class="frame-gallery">
+            <div class="gallery-label">Медіатека — Долоні · Фрейми Руки</div>
             <div class="gallery-grid" id="gal-doloni"></div>
         </div>
     </div>
