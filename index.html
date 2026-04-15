@@ -66,9 +66,12 @@
             display:flex; align-items:center; justify-content:center;
         }
         .hero-poster {
-            position:absolute; inset:0;
-            background:url('main_inf/tech_girl.jpg') center center / cover no-repeat;
+            position:absolute; inset:0; overflow:hidden;
+        }
+        .hero-poster video {
+            width:100%; height:100%; object-fit:cover;
             filter:brightness(0.32) saturate(0.7);
+            position:absolute; inset:0;
         }
         .hero-overlay {
             position:absolute; inset:0;
@@ -514,7 +517,12 @@
 
 <!-- ═══════════════ HERO ═══════════════ -->
 <div id="hero">
-    <div class="hero-poster"></div>
+    <div class="hero-poster">
+        <video autoplay muted loop playsinline>
+            <source src="Koloski/video/video_2026-04-15_04-17-08.mp4" type="video/mp4">
+            <source src="Koloski/video/video_2026-04-15_04-17-14.mp4" type="video/mp4">
+        </video>
+    </div>
     <div class="hero-overlay"></div>
     <div class="hero-inner">
         <img src="img/logo-color.png" alt="InIn" class="hero-logo">
