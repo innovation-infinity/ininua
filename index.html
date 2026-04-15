@@ -161,6 +161,27 @@
         }
         .gal-more:hover { color:var(--cyan); border-color:rgba(0,180,220,0.3); }
 
+        /* ── VIDEO ROW ── */
+        .vid-section { margin-bottom:2rem; }
+        .vid-row {
+            display:flex; gap:0.75rem;
+            overflow-x:auto; padding-bottom:0.5rem;
+            scrollbar-width:thin; scrollbar-color:rgba(0,180,220,0.3) transparent;
+        }
+        .vid-row::-webkit-scrollbar { height:4px; }
+        .vid-row::-webkit-scrollbar-thumb { background:rgba(0,180,220,0.25); border-radius:2px; }
+        .vid-item {
+            flex:0 0 auto; width:180px; border-radius:8px;
+            overflow:hidden; border:1px solid var(--border);
+            background:#000; position:relative;
+            transition:border-color 0.3s;
+        }
+        .vid-item:hover { border-color:rgba(0,180,220,0.4); }
+        .vid-item video {
+            width:100%; height:100%; display:block;
+            aspect-ratio:9/16; object-fit:cover;
+        }
+
         .coming-soon-card {
             border:1px dashed rgba(255,255,255,0.12); border-radius:10px;
             padding:3rem 2rem; text-align:center; color:var(--dim);
@@ -546,7 +567,30 @@
             <img src="Ka-Exp/Ka-Exp_1.jpg" alt="Ка-Експ" class="frame-cover" onclick="openLbSrc(this.src)">
         </div>
         <div class="frame-gallery">
-            <div class="gallery-label">Медіатека — Ка-Експ</div>
+            <div class="vid-section">
+                <div class="gallery-label">Відео — Ка-Експ</div>
+                <div class="vid-row">
+                    <div class="vid-item">
+                        <video src="Ka-Exp/vid/motion2Fast_Cinematic_animation_of_a_custom_artistic_frame_YaD_0.mp4" autoplay muted loop playsinline></video>
+                    </div>
+                    <div class="vid-item">
+                        <video src="Ka-Exp/vid/motion2Fast_Cinematic_product_animation_of_a_custom_artistic_p_0.mp4" autoplay muted loop playsinline></video>
+                    </div>
+                    <div class="vid-item">
+                        <video src="Ka-Exp/vid/motion2Fast_Macro_cinematic_animation_of_a_custom_artistic_fra_0.mp4" autoplay muted loop playsinline></video>
+                    </div>
+                    <div class="vid-item">
+                        <video src="Ka-Exp/vid/motion2Fast_Macro_cinematic_animation_of_a_custom_artistic_fra_0 (1).mp4" autoplay muted loop playsinline></video>
+                    </div>
+                    <div class="vid-item">
+                        <video src="Ka-Exp/vid/ltxv-2.3-pro_Зроби_наче_перший_фрейм_починає_розмножува-0.mp4" autoplay muted loop playsinline></video>
+                    </div>
+                    <div class="vid-item">
+                        <video src="Ka-Exp/vid/ltxv-2.3-pro_Зроби_наче_стартовий_фрейм_люди_починають_о-0.mp4" autoplay muted loop playsinline></video>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-label">Фото — Ка-Експ</div>
             <div class="gallery-grid" id="gal-kaexp"></div>
             <div class="gal-more" id="more-kaexp" onclick="loadMoreKaExp()" style="display:none">Показати більше фото</div>
         </div>
@@ -600,7 +644,15 @@
             <img src="Долоні/nano-banana-2_two_realistic_hands_holding_a_small_photo_frame_same_composition_as_reference_ha-0 (1).jpg" alt="Долоні — Фрейми Руки" class="frame-cover" onclick="openLbSrc(this.src)">
         </div>
         <div class="frame-gallery">
-            <div class="gallery-label">Медіатека — Долоні · Фрейми Руки</div>
+            <div class="vid-section">
+                <div class="gallery-label">Відео — Долоні</div>
+                <div class="vid-row">
+                    <div class="vid-item">
+                        <video src="Долоні/seedance-1.0-lite_same_composition_same_frame_held_by_hands_cinematic_transformation_sequence_cle.mp4" autoplay muted loop playsinline></video>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-label">Фото — Долоні · Фрейми Руки</div>
             <div class="gallery-grid" id="gal-doloni"></div>
         </div>
     </div>
