@@ -69,9 +69,10 @@
             position:absolute; inset:0; overflow:hidden;
         }
         .hero-poster video {
-            width:100%; height:100%; object-fit:cover;
-            filter:brightness(0.32) saturate(0.7);
-            position:absolute; inset:0;
+            position:absolute; top:0; left:0;
+            width:100%; height:100%;
+            object-fit:cover; display:block;
+            filter:brightness(0.45) saturate(0.8);
         }
         .hero-overlay {
             position:absolute; inset:0;
@@ -518,10 +519,7 @@
 <!-- ═══════════════ HERO ═══════════════ -->
 <div id="hero">
     <div class="hero-poster">
-        <video autoplay muted loop playsinline>
-            <source src="Koloski/video/video_2026-04-15_04-17-08.mp4" type="video/mp4">
-            <source src="Koloski/video/video_2026-04-15_04-17-14.mp4" type="video/mp4">
-        </video>
+        <video autoplay muted loop playsinline src="Koloski/video/video_2026-04-15_04-17-14.mp4"></video>
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-inner">
