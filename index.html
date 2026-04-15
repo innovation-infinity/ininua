@@ -26,7 +26,7 @@
 
         /* ── NAV ── */
         nav {
-            position:fixed; top:0; left:0; right:0; z-index:100;
+            position:fixed; top:0; left:0; right:0; z-index:300;
             display:flex; align-items:center; justify-content:space-between;
             padding:0.9rem 2rem;
             background:rgba(10,10,15,0.92); backdrop-filter:blur(14px);
@@ -467,9 +467,9 @@
             .burger { display:flex; }
             .nav-links {
                 display:none; flex-direction:column; gap:0;
-                position:fixed; top:54px; left:0; right:0; bottom:0;
+                position:fixed; top:0; left:0; right:0; bottom:0;
                 background:rgba(10,10,15,0.98); backdrop-filter:blur(20px);
-                z-index:99; padding:1.5rem 2rem; overflow-y:auto;
+                z-index:200; padding:5rem 2rem 2rem; overflow-y:auto;
             }
             .nav-links.open { display:flex; }
             .nav-links li { border-bottom:1px solid var(--border); }
