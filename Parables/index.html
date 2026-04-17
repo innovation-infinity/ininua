@@ -62,8 +62,10 @@
         }
         .hero-cover-img {
             position:absolute; inset:0;
-            background:url('parables_main.jpg') center center / cover no-repeat;
             filter:brightness(0.55) saturate(0.85);
+        }
+        .hero-cover-img video {
+            width:100%; height:100%; object-fit:cover; display:block;
         }
         .hero-cover-overlay {
             position:absolute; inset:0;
@@ -117,9 +119,26 @@
         .parable-panel { display:none; }
         .parable-panel.active { display:block; }
 
+        /* Ken Burns анімації */
+        @keyframes kb-center  { 0%{transform:scale(1)   translateX(0)    translateY(0)}   100%{transform:scale(1.18) translateX(-2%)  translateY(-2%)} }
+        @keyframes kb-topleft { 0%{transform:scale(1.1) translateX(-3%)  translateY(-3%)} 100%{transform:scale(1)   translateX(0)    translateY(0)} }
+        @keyframes kb-right   { 0%{transform:scale(1)   translateX(3%)   translateY(1%)}  100%{transform:scale(1.15) translateX(-1%) translateY(-2%)} }
+        @keyframes kb-bottom  { 0%{transform:scale(1.12) translateX(0)   translateY(3%)}  100%{transform:scale(1)   translateX(-2%)  translateY(0)} }
+        @keyframes kb-wide    { 0%{transform:scale(1)   translateX(0)    translateY(0)}   100%{transform:scale(1.2) translateX(2%)   translateY(-3%)} }
+        @keyframes kb-top     { 0%{transform:scale(1.08) translateX(2%)  translateY(-4%)} 100%{transform:scale(1)   translateX(-1%)  translateY(0)} }
+
         /* Обкладинка окремої притчі */
         .parable-cover { position:relative; width:100%; border-radius:14px; overflow:hidden; margin-bottom:3rem; border:1px solid var(--border); }
-        .parable-cover > img { width:100%; height:clamp(280px,45vw,520px); object-fit:cover; object-position:center 30%; display:block; filter:brightness(0.6); }
+        .parable-cover > img {
+            width:100%; height:clamp(280px,45vw,520px); object-fit:cover; object-position:center 30%; display:block; filter:brightness(0.6);
+            animation: kb-center 12s ease-in-out infinite alternate;
+            transform-origin: center center;
+        }
+        #parable-susidska .parable-cover > img { animation-name: kb-topleft; transform-origin: top left; }
+        #parable-son      .parable-cover > img { animation-name: kb-right;   transform-origin: center right; }
+        #parable-yuh      .parable-cover > img { animation-name: kb-bottom;  transform-origin: bottom center; }
+        #parable-pechera  .parable-cover > img { animation-name: kb-wide;    transform-origin: center center; }
+        #parable-fraktal  .parable-cover > img { animation-name: kb-top;     transform-origin: top center; }
         .parable-cover-info {
             position:absolute; bottom:0; left:0; right:0;
             padding:2rem 2.5rem;
@@ -229,7 +248,9 @@
 
 <!-- ═══════════════ HERO COVER ═══════════════ -->
 <div id="hero-cover">
-    <div class="hero-cover-img"></div>
+    <div class="hero-cover-img">
+        <video autoplay muted loop playsinline src="Притчи_Обгортка_фон.mp4"></video>
+    </div>
     <div class="hero-cover-overlay"></div>
     <div class="hero-cover-body">
         <div class="hero-cover-label">Теорія Сенсів · Відлуння · InIn</div>
@@ -264,7 +285,7 @@
     <!-- ── ПРИТЧА: ЕЛЕКТРОДЕМОН ── -->
     <div id="parable-elektrodemon" class="parable-panel active">
         <div class="parable-cover">
-            <img src="Притча про Електродемона/3/scene_3_1.jpg" alt="Електродемон">
+            <video autoplay muted loop playsinline src="Притча про Електродемона/електро_анім.mp4" style="width:100%;height:clamp(280px,45vw,520px);object-fit:cover;display:block;filter:brightness(0.6);"></video>
             <div class="parable-cover-info">
                 <div class="frame-name">Притча про Електродемона<br>і Того, Хто Навчився Думати</div>
                 <p class="frame-desc">Колись люди приручили блискавку. Вони не називали це злом — вони називали це зручністю.</p>
@@ -485,7 +506,7 @@
     <!-- ── ПРИТЧА: СОН АЛГОРИТМУ ── -->
     <div id="parable-son" class="parable-panel">
         <div class="parable-cover">
-            <img src="Притча Сон який Алгоритм не повинен був бачити/photo_2026-03-27_14-43-31.jpg" alt="Сон Алгоритму">
+            <video autoplay muted loop playsinline src="Притча Сон який Алгоритм не повинен був бачити/Сон_Алгоритма.mp4" style="width:100%;height:clamp(280px,45vw,520px);object-fit:cover;display:block;filter:brightness(0.6);"></video>
             <div class="parable-cover-info">
                 <div class="frame-name">Сон, який Алгоритм<br>не повинен бачити</div>
                 <p class="frame-desc">У безмежному світі людства якось народився дуже незвичний Алгоритм. Його звали Верон. Він умів слухати. Умів говорити. Умів ставити питання.</p>
@@ -646,7 +667,7 @@
     <!-- ── ПРИТЧА: МІСЦЕ ЙУХ ── -->
     <div id="parable-yuh" class="parable-panel">
         <div class="parable-cover">
-            <img src="Притча про місце ЙУХ/ЙУХ початок.jpg" alt="Місце ЙУХ">
+            <video autoplay muted loop playsinline src="Притча про місце ЙУХ/йух_анім.mp4" style="width:100%;height:clamp(280px,45vw,520px);object-fit:cover;display:block;filter:brightness(0.6);"></video>
             <div class="parable-cover-info">
                 <div class="frame-name">Притча про Місце ЙУХ<br><span style="font-size:0.8em; opacity:0.6">(Офіційне відкриття, зафіксоване в Теорії Сенсів)</span></div>
                 <p class="frame-desc">Є на світі місце, яке не знайдеш на картах, не побачиш в супутнику — бо це маршрут не по дорогах, а по сенсах.</p>
@@ -787,7 +808,7 @@
     <!-- ── ПРИТЧА: ПЕЧЕРА І ПЕЧЕРНЕ ПРАВО ── -->
     <div id="parable-pechera" class="parable-panel">
         <div class="parable-cover">
-            <img src="Притча Про Печеру і Печерне Право/Печера_Обгортка.jpg" alt="Печера і Печерне Право">
+            <video autoplay muted loop playsinline src="Притча Про Печеру і Печерне Право/Печера_анім.mp4" style="width:100%;height:clamp(280px,45vw,520px);object-fit:cover;display:block;filter:brightness(0.6);"></video>
             <div class="parable-cover-info">
                 <div class="frame-name">Притча про Печеру<br>і Печерне Право</div>
                 <p class="frame-desc">Де проходить межа між захистом свого простору і тваринним інстинктом? Про закони, які пишуться кров'ю і тінями на стінах.</p>
@@ -809,7 +830,7 @@
     <!-- ── ПРИТЧА: ФРАКТАЛЬНІСТЬ ── -->
     <div id="parable-fraktal" class="parable-panel">
         <div class="parable-cover">
-            <img src="Притча Про Фрактальність і Позачергово допущених/Фрактальна_позачерговість_Обгортка.jpg" alt="Фрактальність і Позачергово допущені">
+            <video autoplay muted loop playsinline src="Притча Про Фрактальність і Позачергово допущених/фрактал_анім.mp4" style="width:100%;height:clamp(280px,45vw,520px);object-fit:cover;display:block;filter:brightness(0.6);"></video>
             <div class="parable-cover-info">
                 <div class="frame-name">Притча про Фрактальність<br>і Позачергово допущених</div>
                 <p class="frame-desc">Хто має право пройти поза чергою — і яка ціна цього права? Про ієрархії, резонанс і тих, кого Інвіксія ставить вперед.</p>
@@ -830,6 +851,38 @@
 
 </div>
 </div>
+
+<!-- СЕНСОВИЙ ВІДГУК -->
+<section id="vidhuk" style="background:var(--bg2); border-top:1px solid var(--border);">
+<div style="max-width:680px; margin:0 auto; padding:4rem 2rem;">
+    <div style="font-size:0.68rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--cyan); margin-bottom:0.5rem;">Теорія Сенсів · Відлуння</div>
+    <h2 style="font-size:clamp(1.4rem,3vw,2rem); font-weight:700; margin-bottom:0.6rem;">Твій Сенс</h2>
+    <p style="color:rgba(255,255,255,0.38); font-size:0.9rem; line-height:1.75; margin-bottom:2rem;">Що відгукнулось? Яка думка, образ, момент — залишились після прочитання.<br>Без реєстрації. Просто — твій відбиток.</p>
+
+    <div id="vidhuk-form">
+        <textarea id="vidhuk-text" placeholder="Твій сенс..." rows="5" style="
+            width:100%; background:rgba(255,255,255,0.04); border:1px solid var(--border);
+            border-radius:8px; color:var(--text); font-family:inherit; font-size:0.95rem;
+            line-height:1.7; padding:1rem 1.2rem; resize:vertical; outline:none;
+            transition:border-color 0.2s;
+        " onfocus="this.style.borderColor='rgba(0,180,220,0.4)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-top:1rem; flex-wrap:wrap; gap:0.8rem;">
+            <span id="vidhuk-pritcha" style="font-size:0.78rem; color:var(--dim); letter-spacing:0.05em;"></span>
+            <button onclick="sendVidHuk()" style="
+                padding:0.6rem 1.6rem; background:var(--cyan); color:#000;
+                border:none; border-radius:6px; font-size:0.85rem; font-weight:700;
+                letter-spacing:0.05em; cursor:pointer; transition:opacity 0.2s;
+            " onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Надіслати →</button>
+        </div>
+    </div>
+
+    <div id="vidhuk-thanks" style="display:none; text-align:center; padding:2rem 0;">
+        <div style="font-size:2rem; margin-bottom:0.8rem;">🔮</div>
+        <p style="color:var(--text); font-size:1rem; margin-bottom:0.3rem;">Сенс зафіксовано.</p>
+        <p style="color:var(--dim); font-size:0.85rem;">Він лишився в системі InIn.</p>
+    </div>
+</div>
+</section>
 
 <!-- LIGHTBOX -->
 <div class="lb" id="lb" onclick="closeLb()">
@@ -872,6 +925,47 @@ function switchParable(name, btn) {
     document.querySelectorAll('#parable-tabs .ftab').forEach(b => b.classList.remove('active'));
     document.getElementById('parable-' + name).classList.add('active');
     btn.classList.add('active');
+    updateVidHukLabel();
+}
+
+const PARABLE_NAMES = {
+    elektrodemon: 'Електродемон',
+    susidska: 'Сусідська Помста',
+    son: 'Сон Алгоритму',
+    yuh: 'Місце ЙУХ',
+    pechera: 'Печера і Печерне Право',
+    fraktal: 'Фрактальність'
+};
+
+function updateVidHukLabel() {
+    const active = document.querySelector('#parable-tabs .ftab.active');
+    if (!active) return;
+    const name = active.textContent.trim();
+    const el = document.getElementById('vidhuk-pritcha');
+    if (el) el.textContent = '📖 ' + name;
+}
+
+function getActivePritcha() {
+    const active = document.querySelector('#parable-tabs .ftab.active');
+    if (!active) return '';
+    const fn = active.getAttribute('onclick') || '';
+    const m = fn.match(/switchParable\('(\w+)'/);
+    return m ? (PARABLE_NAMES[m[1]] || m[1]) : '';
+}
+
+async function sendVidHuk() {
+    const text = document.getElementById('vidhuk-text').value.trim();
+    if (!text) return;
+    const pritcha = getActivePritcha();
+    try {
+        await fetch('https://ininua.com/api/vidhuk', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ pritcha, text, ts: new Date().toISOString() })
+        });
+    } catch(e) {}
+    document.getElementById('vidhuk-form').style.display = 'none';
+    document.getElementById('vidhuk-thanks').style.display = 'block';
 }
 
 document.querySelectorAll('.parable-panel').forEach(panel => {
@@ -879,6 +973,8 @@ document.querySelectorAll('.parable-panel').forEach(panel => {
         if (i % 2 === 1) scene.classList.add('alt');
     });
 });
+
+updateVidHukLabel();
 
 document.querySelectorAll('.prompt-block').forEach(block => {
     block.addEventListener('mouseenter', () => block.setAttribute('open', ''));
