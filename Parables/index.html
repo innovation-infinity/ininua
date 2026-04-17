@@ -63,9 +63,17 @@
         .hero-cover-img {
             position:absolute; inset:0;
             filter:brightness(0.55) saturate(0.85);
+            overflow:hidden;
         }
-        .hero-cover-img video {
+        .hero-cover-img img {
             width:100%; height:100%; object-fit:cover; display:block;
+            transform-origin:60% 40%;
+            animation:hero-kb 18s ease-in-out infinite alternate;
+        }
+        @keyframes hero-kb {
+            0%   { transform: scale(1)    translateX(0)   translateY(0); }
+            50%  { transform: scale(1.06) translateX(-1%) translateY(-1%); }
+            100% { transform: scale(1.12) translateX(1%)  translateY(-2%); }
         }
         .hero-cover-overlay {
             position:absolute; inset:0;
@@ -249,16 +257,16 @@
 <!-- ═══════════════ HERO COVER ═══════════════ -->
 <div id="hero-cover">
     <div class="hero-cover-img">
-        <video autoplay muted loop playsinline src="Притчи_Обгортка_фон.mp4"></video>
+        <img src="parables_main.jpg" alt="Притчі InIn">
     </div>
     <div class="hero-cover-overlay"></div>
     <div class="hero-cover-body">
         <div class="hero-cover-label">Теорія Сенсів · Відлуння · InIn</div>
         <h1 class="hero-cover-title">Притчі —<br>модулі сенсу</h1>
         <p class="hero-cover-sub">
-            Кожна притча — не просто текст.<br>
-            Це кут зору, що змінює те як ти бачиш звичне.<br>
-            Читай. Відчуй. Поділись своїм відлунням.
+            Є речі, які не народжуються словами.<br>
+            Вони з'являються між ними.<br>
+            Якщо ти відчуєш хоча б одну — значить ти вже дивишся трохи далі.
         </p>
         <span class="scroll-hint">↓ прокрути щоб читати</span>
         <p class="hero-cover-caption">
