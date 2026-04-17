@@ -884,10 +884,16 @@
         </div>
     </div>
 
-    <div id="vidhuk-thanks" style="display:none; text-align:center; padding:2rem 0;">
-        <div style="font-size:2rem; margin-bottom:0.8rem;">🔮</div>
-        <p style="color:var(--text); font-size:1rem; margin-bottom:0.3rem;">Сенс зафіксовано.</p>
-        <p style="color:var(--dim); font-size:0.85rem;">Він лишився в системі InIn.</p>
+    <div id="vidhuk-thanks" style="display:none; padding:2rem 0;">
+        <div style="text-align:center; margin-bottom:1.8rem;">
+            <div style="font-size:2rem; margin-bottom:0.8rem;">🔮</div>
+            <p style="color:var(--text); font-size:1rem; margin-bottom:0.3rem;">Сенс зафіксовано.</p>
+            <p style="color:var(--dim); font-size:0.85rem;">Він лишився в системі InIn.</p>
+        </div>
+        <div style="border-top:1px solid var(--border); padding-top:1.5rem;">
+            <p style="font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--dim); margin-bottom:1rem; text-align:center;">Поділитись відлунням</p>
+            <div id="vidhuk-share-btns" style="display:flex; gap:0.8rem; flex-wrap:wrap; justify-content:center;"></div>
+        </div>
     </div>
 </div>
 </section>
@@ -966,14 +972,33 @@ async function sendVidHuk() {
     if (!text) return;
     const pritcha = getActivePritcha();
     try {
-        await fetch('https://ininua.com/api/vidhuk', {
+        await fetch('/api/vidhuk', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({ pritcha, text, ts: new Date().toISOString() })
         });
     } catch(e) {}
+
     document.getElementById('vidhuk-form').style.display = 'none';
     document.getElementById('vidhuk-thanks').style.display = 'block';
+
+    const url = encodeURIComponent('https://ininua.com/Parables/');
+    const shareText = encodeURIComponent(`"${text}"\n\n— моє відлуння на притчу "${pritcha}" · InIn`);
+    const btns = [
+        { label: 'Facebook',  href: `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${shareText}` },
+        { label: 'Telegram',  href: `https://t.me/share/url?url=${url}&text=${shareText}` },
+        { label: 'X / Twitter', href: `https://twitter.com/intent/tweet?text=${shareText}&url=${url}` },
+    ];
+    const container = document.getElementById('vidhuk-share-btns');
+    container.innerHTML = btns.map(b =>
+        `<a href="${b.href}" target="_blank" rel="noopener" style="
+            padding:0.55rem 1.2rem; border:1px solid rgba(0,180,220,0.35);
+            border-radius:6px; color:var(--cyan); text-decoration:none;
+            font-size:0.82rem; font-weight:600; letter-spacing:0.04em;
+            transition:background 0.2s;
+        " onmouseover="this.style.background='rgba(0,180,220,0.1)'"
+           onmouseout="this.style.background='transparent'">${b.label}</a>`
+    ).join('');
 }
 
 document.querySelectorAll('.parable-panel').forEach(panel => {
