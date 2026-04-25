@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ininua.com/sitemap.xml
