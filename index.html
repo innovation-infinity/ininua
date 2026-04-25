@@ -235,6 +235,39 @@
             .portal-gallery { padding:1.5rem 1.2rem 2rem; }
         }
 
+        /* ── FRAMES NAV ── */
+        #frames-nav {
+            position:sticky; top:56px; z-index:90;
+            background:rgba(10,10,15,0.92); backdrop-filter:blur(12px);
+            border-bottom:1px solid var(--border);
+            overflow-x:auto; scrollbar-width:none;
+        }
+        #frames-nav::-webkit-scrollbar { display:none; }
+        .frames-nav-inner {
+            display:flex; gap:0; padding:0 1rem;
+            width:max-content; min-width:100%;
+        }
+        .fnav-item {
+            display:flex; flex-direction:column; align-items:center;
+            gap:0.35rem; padding:0.7rem 1.2rem; cursor:pointer;
+            border-bottom:2px solid transparent;
+            transition:all 0.2s; text-decoration:none; color:var(--dim);
+            white-space:nowrap; font-size:0.78rem; letter-spacing:0.04em;
+        }
+        .fnav-item:hover { color:var(--text); border-bottom-color:rgba(0,180,220,0.4); }
+        .fnav-item.active { color:var(--cyan); border-bottom-color:var(--cyan); }
+        .fnav-thumb {
+            width:44px; height:44px; border-radius:6px; overflow:hidden;
+            border:1px solid rgba(255,255,255,0.08);
+            background:#111;
+        }
+        .fnav-thumb img {
+            width:100%; height:100%; object-fit:cover;
+            filter:brightness(0.7); transition:filter 0.2s;
+        }
+        .fnav-item:hover .fnav-thumb img,
+        .fnav-item.active .fnav-thumb img { filter:brightness(1); }
+
         /* ── YADFRAMES MAIN ── */
         #yadframes { }
 
@@ -690,10 +723,32 @@
 </div>
 </div>
 
+<!-- ═══════════════ FRAMES NAV ═══════════════ -->
+<div id="frames-nav">
+    <div class="frames-nav-inner">
+        <a class="fnav-item active" onclick="scrollToPortal('portal-koloski',this)">
+            <div class="fnav-thumb"><img src="Koloski/Koloska_1.jpg" alt="Колоски"></div>
+            Колоски · 299 грн
+        </a>
+        <a class="fnav-item" onclick="scrollToPortal('portal-kaexp',this)">
+            <div class="fnav-thumb"><img src="Ka-Exp/KaExp_cover.jpg" onerror="this.parentNode.style.background='#1a1a2e'" alt="Ка-Експ"></div>
+            Ка-Експ · 599 грн
+        </a>
+        <a class="fnav-item" onclick="scrollToPortal('portal-shavel',this)">
+            <div class="fnav-thumb"><img src="Shavel/Shavel_1.jpg" alt="Щавель"></div>
+            Щавель · за запитом
+        </a>
+        <a class="fnav-item" onclick="scrollToPortal('portal-doloni',this)">
+            <div class="fnav-thumb"><img src="Долоні/Будівельник1.jpg" onerror="this.parentNode.style.background='#1a1a2e'" alt="Долоні"></div>
+            Долоні · 799 грн
+        </a>
+    </div>
+</div>
+
 <!-- ═══════════════ PORTALS ═══════════════ -->
 
 <!-- PORTAL: КОЛОСКИ -->
-<div class="portal">
+<div class="portal" id="portal-koloski">
     <div class="portal-bg" style="background-image:url('Koloski/Koloska_1.jpg')">
         <video autoplay muted loop playsinline src="Koloski/video/video_2026-04-15_04-17-08.mp4"></video>
     </div>
@@ -735,7 +790,7 @@
 </div>
 
 <!-- PORTAL: КА-ЕКСП -->
-<div class="portal">
+<div class="portal" id="portal-kaexp">
     <div class="portal-bg">
         <video autoplay muted loop playsinline src="Ka-Exp/vid/motion2Fast_Cinematic_animation_of_a_custom_artistic_frame_YaD_0.mp4"></video>
     </div>
@@ -785,7 +840,7 @@
 </div>
 
 <!-- PORTAL: ЩАВЕЛЬ -->
-<div class="portal">
+<div class="portal" id="portal-shavel">
     <div class="portal-bg" style="background-image:url('Shavel/Shavel_1.jpg')"></div>
     <div class="portal-overlay"></div>
     <div class="portal-body">
@@ -818,7 +873,7 @@
 </div>
 
 <!-- PORTAL: ДОЛОНІ -->
-<div class="portal">
+<div class="portal" id="portal-doloni">
     <div class="portal-bg">
         <video autoplay muted loop playsinline src="Долоні/seedance-1.0-lite_same_composition_same_frame_held_by_hands_cinematic_transformation_sequence_cle.mp4"></video>
     </div>
@@ -1132,6 +1187,37 @@ document.querySelectorAll('.prompt-block').forEach(block => {
     const summary = block.querySelector('summary');
     if (summary) summary.addEventListener('click', e => e.preventDefault());
 });
+
+/* ── FRAMES NAV ── */
+function scrollToPortal(id, el) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const navH = document.getElementById('frames-nav').offsetHeight;
+    const navBar = document.querySelector('nav').offsetHeight;
+    const top = target.getBoundingClientRect().top + window.scrollY - navBar - navH - 8;
+    window.scrollTo({ top, behavior:'smooth' });
+    document.querySelectorAll('.fnav-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+}
+(function initFramesNavObserver() {
+    const portals = ['portal-koloski','portal-kaexp','portal-shavel','portal-doloni'];
+    const items = document.querySelectorAll('.fnav-item');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const idx = portals.indexOf(entry.target.id);
+                if (idx >= 0) {
+                    items.forEach(i => i.classList.remove('active'));
+                    if (items[idx]) items[idx].classList.add('active');
+                }
+            }
+        });
+    }, { threshold: 0.35 });
+    portals.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+    });
+})();
 
 /* ── TAGLINE ROTATOR ── */
 const TAGLINES = {
