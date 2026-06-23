@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -701,6 +701,82 @@
         .lb img { max-width:90vw; max-height:90vh; border-radius:4px; }
         .lb-close { position:absolute; top:1.2rem; right:1.5rem; font-size:2rem; color:var(--dim); cursor:pointer; line-height:1; }
 
+        /* ── ART STRIP ── */
+        .art-strip {
+            padding:0; overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+        }
+        .art-strip-scroll {
+            display:flex; gap:0; overflow-x:auto; scrollbar-width:none;
+        }
+        .art-strip-scroll::-webkit-scrollbar { display:none; }
+        .art-strip-item {
+            flex-shrink:0; width:280px; height:220px; overflow:hidden;
+            position:relative;
+        }
+        .art-strip-item img {
+            width:100%; height:100%; object-fit:cover;
+            filter:brightness(0.7) saturate(0.9);
+            transition:filter 0.4s, transform 0.5s;
+        }
+        .art-strip-item:hover img { filter:brightness(0.95) saturate(1.1); transform:scale(1.04); }
+
+        /* ── ART INTERSTITIAL ── */
+        .art-inter {
+            position:relative; overflow:hidden;
+            min-height:340px; display:flex; align-items:center;
+            border-top:1px solid var(--border);
+        }
+        .art-inter-bg {
+            position:absolute; inset:0;
+        }
+        .art-inter-bg img {
+            width:100%; height:100%; object-fit:cover;
+            filter:brightness(0.35) saturate(0.7);
+        }
+        .art-inter-overlay {
+            position:absolute; inset:0;
+            background:linear-gradient(90deg, rgba(10,10,15,0.92) 0%, rgba(10,10,15,0.5) 60%, rgba(10,10,15,0.15) 100%);
+        }
+        .art-inter-body {
+            position:relative; z-index:1;
+            max-width:560px; padding:3.5rem 4rem;
+        }
+        .art-inter-label {
+            font-size:0.62rem; letter-spacing:0.32em; text-transform:uppercase;
+            color:var(--cyan); margin-bottom:1rem;
+        }
+        .art-inter-quote {
+            font-size:clamp(1.05rem,2.2vw,1.45rem); font-weight:300;
+            line-height:1.75; color:rgba(255,255,255,0.82);
+            font-style:italic;
+        }
+        .art-inter-quote strong { color:#fff; font-style:normal; font-weight:600; }
+        .art-inter-sign {
+            margin-top:1.2rem; font-size:0.72rem; letter-spacing:0.18em;
+            text-transform:uppercase; color:var(--dim);
+        }
+
+        /* ── YADБLOG ── */
+        #yadblog { background:var(--bg2); border-top:1px solid var(--border); }
+        .blog-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            gap:1.5rem; margin-top:2.5rem;
+        }
+        .blog-card {
+            border:1px solid var(--border); border-radius:10px; overflow:hidden;
+            background:rgba(255,255,255,0.02); transition:border-color 0.3s, transform 0.3s;
+        }
+        .blog-card:hover { border-color:rgba(0,180,220,0.3); transform:translateY(-2px); }
+        .blog-card-img {
+            width:100%; height:160px; object-fit:cover;
+            filter:brightness(0.6); transition:filter 0.3s;
+        }
+        .blog-card:hover .blog-card-img { filter:brightness(0.8); }
+        .blog-card-body { padding:1.4rem 1.6rem; }
+        .blog-card-tag { font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--cyan); margin-bottom:0.5rem; }
+        .blog-card-title { font-size:1.05rem; font-weight:700; margin-bottom:0.5rem; line-height:1.3; }
+        .blog-card-text { font-size:0.82rem; color:var(--dim); line-height:1.75; }
+
         /* ── FOOTER ── */
         footer { border-top:1px solid var(--border); padding:2.5rem 2rem; text-align:center; }
         footer .f-logo { width:36px; opacity:0.4; margin-bottom:0.7rem; }
@@ -768,11 +844,10 @@
         <span>InIn</span>
     </a>
     <ul class="nav-links" id="nav-links">
-        <li><a href="#yadframes" onclick="closeMenu()">YaDFrames</a></li>
-        <li><a href="#yadstore" onclick="closeMenu()">YaDStore</a></li>
-        <li><a href="#theory" onclick="closeMenu()">Теорія</a></li>
+        <li><a href="#entries" onclick="closeMenu()">Проекти</a></li>
+        <li><a href="Fractal Vision/index.html" onclick="closeMenu()">Теорія</a></li>
         <li><a href="Parables/" onclick="closeMenu()">Притчі</a></li>
-        <li><a href="#inhome" onclick="closeMenu()">InHome</a></li>
+        <li><a href="#yadblog" onclick="closeMenu()">YaDБлог</a></li>
         <li><a href="https://www.instagram.com/yadstore_ua" target="_blank" rel="noopener" class="nav-ig" onclick="closeMenu()">Instagram</a></li>
     </ul>
     <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Меню">
@@ -796,7 +871,7 @@
             Ми обрали — творити.
         </div>
         <div class="hero-cta">
-            <a href="#yadframes" class="btn btn-primary">Переглянути YaDFrames</a>
+            <a href="#entries" class="btn btn-primary">Проекти InIn</a>
             <a href="#contacts" class="btn btn-outline">Зв'язатись</a>
         </div>
         <div class="scroll-hint" style="margin-top:2rem">↓ scroll</div>
@@ -815,232 +890,66 @@
 </div>
 </div>
 
-<!-- ═══════════════ FRAMES NAV ═══════════════ -->
-<div id="frames-nav">
-    <div class="frames-nav-inner">
-        <a class="fnav-item active" onclick="scrollToPortal('portal-koloski',this)">
-            <div class="fnav-thumb"><img src="Koloski/Koloska_1.jpg" alt="Колоски"></div>
-            Колоски · 299 грн
-        </a>
-        <a class="fnav-item" onclick="scrollToPortal('portal-kaexp',this)">
-            <div class="fnav-thumb"><img src="Ka-Exp/KaExp_cover.jpg" onerror="this.parentNode.style.background='#1a1a2e'" alt="Ка-Експ"></div>
-            Ка-Експ · 599 грн
-        </a>
-        <a class="fnav-item" onclick="scrollToPortal('portal-shavel',this)">
-            <div class="fnav-thumb"><img src="Shavel/Shavel_1.jpg" alt="Щавель"></div>
-            Щавель · за запитом
-        </a>
-        <a class="fnav-item" onclick="scrollToPortal('portal-doloni',this)">
-            <div class="fnav-thumb"><img src="Долоні/Будівельник1.jpg" onerror="this.parentNode.style.background='#1a1a2e'" alt="Долоні"></div>
-            Долоні · 799 грн
-        </a>
-        <a class="fnav-item" onclick="scrollToPortal('portal-drako',this)">
-            <div class="fnav-thumb"><img src="Дракончики/real_render.jpg" onerror="this.parentNode.style.background='#1a1a2e'" alt="Дракончики"></div>
-            🐉 Дракончики · 299–399 грн
-        </a>
+<!-- ═══════════════ АРТ СТРІЧКА 1 ═══════════════ -->
+<div class="art-strip">
+    <div class="art-strip-scroll">
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_0000000002d461fd93b8ca690ecea956.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Backgrounds Science/file_000000008d5c622f8c35682a2989f323.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_000000004a7861f79e7e899c4afe3d63.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_000000005e2862469ef9d76cf74c65d5.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Backgrounds Science/file_000000000af861f4baa8a19822ba7e2e.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_00000000575461f8892b1afcdf820d1c.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_000000002a386243bd1d63e5faa86a6c.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_000000006b546243993b8291abfa3114.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_00000000b4986246bd253d48c4be867e.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Backgrounds Science/file_000000009984620aab9c902fbd987ad5.png" alt=""></div>
     </div>
 </div>
 
-<!-- ═══════════════ PORTALS ═══════════════ -->
-
-<!-- PORTAL: КОЛОСКИ -->
-<div class="portal" id="portal-koloski">
-    <div class="portal-bg" style="background-image:url('Koloski/Koloska_1.jpg')">
-        <video autoplay muted loop playsinline src="Koloski/video/video_2026-04-15_04-17-08.mp4"></video>
-    </div>
-    <div class="portal-overlay"></div>
-    <div class="portal-body">
-        <div class="portal-left">
-            <span class="portal-tier tier-mass">Масовий · YaDFrames</span>
-            <div class="portal-name">Колоски</div>
-            <p class="portal-desc">Стильний елемент декору для будь-якого інтер'єру. Легкий, яскравий, неповторний.</p>
-            <div class="portal-tagline" data-taglines="koloski"><span class="tagline-text"></span></div>
-            <div class="portal-price">299 грн <span>/ штука</span></div>
-            <div class="portal-actions">
-                <a href="https://t.me/Janbo90" target="_blank" class="btn-icon btn-icon-tg">
-                    <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                    <span>Купити</span>
-                </a>
-                <a href="https://www.instagram.com/yak_danil" target="_blank" class="btn-icon btn-icon-ig">
-                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    <span>Придбати</span>
-                </a>
-                <a href="tel:+380661905391" class="btn-icon btn-icon-tel">
-                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    <span>Замовити</span>
-                </a>
+<!-- ═══ ТЕРМІНИ PREVIEW ═══ -->
+<div style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.5rem 2rem;">
+    <div style="max-width:1080px;margin:0 auto;">
+        <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--cyan);margin-bottom:1.2rem;">Теорія Сенсів · Нові терміни</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;">
+            <div style="border-left:2px solid var(--cyan);padding-left:1.2rem;">
+                <div style="font-weight:700;font-size:1rem;margin-bottom:0.4rem;">Локус</div>
+                <div style="font-size:0.83rem;color:var(--dim);line-height:1.7;">Обмежена область інфополя, виділена контекстом, поглядом або задачею. Дозволяє працювати з великим масивом змісту як з єдиним об'єктом. <em>«Мегаліт 333 — це Локус.»</em></div>
             </div>
-        </div>
-        <div class="portal-right">
-            <div class="vid-thumb">
-                <video src="Koloski/video/video_2026-04-15_04-17-14.mp4" autoplay muted loop playsinline></video>
-                <div class="vid-preview"><video src="Koloski/video/video_2026-04-15_04-17-14.mp4" autoplay muted loop playsinline></video></div>
+            <div style="border-left:2px solid rgba(0,180,220,0.4);padding-left:1.2rem;">
+                <div style="font-weight:700;font-size:1rem;margin-bottom:0.4rem;">Нексія</div>
+                <div style="font-size:0.83rem;color:var(--dim);line-height:1.7;">Невидимий резонансний зв'язок між двома локусами. НЕ логічний перехід. НЕ асоціація. Тяга. З лат. <em>nectere</em> — зв'язувати. Коли Нексія «клацає» — це і є Когерентність.</div>
+            </div>
+            <div style="border-left:2px solid rgba(255,255,255,0.12);padding-left:1.2rem;display:flex;align-items:center;">
+                <a href="Fractal Vision/index.html" style="color:var(--cyan);text-decoration:none;font-size:0.82rem;letter-spacing:0.06em;">Повний Словник Теорії Сенсів →</a>
             </div>
         </div>
     </div>
-</div>
-<div class="portal-gallery">
-    <div class="gallery-label">Медіатека — Колоски міні</div>
-    <div class="gallery-grid" id="gal-koloski"></div>
-    <div class="gal-more" id="more-koloski" onclick="loadMoreKoloski()" style="display:none">Показати більше фото</div>
 </div>
 
-<!-- PORTAL: КА-ЕКСП -->
-<div class="portal" id="portal-kaexp">
-    <div class="portal-bg">
-        <video autoplay muted loop playsinline src="Ka-Exp/vid/motion2Fast_Cinematic_animation_of_a_custom_artistic_frame_YaD_0.mp4"></video>
+
+<!-- ═══ АРТ ІНТЕРСТИЦІАЛ: ПІСЛЯ ПРОДУКТІВ ═══ -->
+<div class="art-inter" style="min-height:400px;">
+    <div class="art-inter-bg"><img src="elements_InInua/Media/Backgrounds Science/file_000000008d5c622f8c35682a2989f323.png" alt="" style="object-position:center right;"></div>
+    <div class="art-inter-overlay" style="background:linear-gradient(90deg, rgba(10,10,15,0.96) 0%, rgba(10,10,15,0.6) 55%, rgba(10,10,15,0.1) 100%);"></div>
+    <div class="art-inter-body">
+        <div class="art-inter-label">Арка · про продукт</div>
+        <p class="art-inter-quote">Кожна рамка — це <strong>полігон для твого спогаду</strong>. Ми не продаємо пластик. Ми продаємо місця де живуть моменти.</p>
+        <div class="art-inter-sign">— Арка, архітектор InIn</div>
     </div>
-    <div class="portal-overlay"></div>
-    <div class="portal-body">
-        <div class="portal-left">
-            <span class="portal-tier tier-semi">Напівмасовий · YaDFrames</span>
-            <div class="portal-name">Ка-Експ</div>
-            <p class="portal-desc">Для тих хто хоче щоб рамка мала характер. Виразна геометрія, деталізована поверхня, ручна обробка.</p>
-            <div class="portal-tagline" data-taglines="kaexp"><span class="tagline-text"></span></div>
-            <div class="portal-price">599 грн <span>/ штука</span></div>
-            <div class="portal-actions">
-                <a href="https://t.me/Janbo90" target="_blank" class="btn-icon btn-icon-tg">
-                    <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                    <span>Купити</span>
-                </a>
-                <a href="https://www.instagram.com/yak_danil" target="_blank" class="btn-icon btn-icon-ig">
-                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    <span>Придбати</span>
-                </a>
-                <a href="tel:+380661905391" class="btn-icon btn-icon-tel">
-                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    <span>Замовити</span>
-                </a>
-            </div>
-        </div>
-        <div class="portal-right">
-            <div class="vid-thumb">
-                <video src="Ka-Exp/vid/motion2Fast_Macro_cinematic_animation_of_a_custom_artistic_fra_0.mp4" autoplay muted loop playsinline></video>
-                <div class="vid-preview"><video src="Ka-Exp/vid/motion2Fast_Macro_cinematic_animation_of_a_custom_artistic_fra_0.mp4" autoplay muted loop playsinline></video></div>
-            </div>
-            <div class="vid-thumb">
-                <video src="Ka-Exp/vid/motion2Fast_Cinematic_product_animation_of_a_custom_artistic_p_0.mp4" autoplay muted loop playsinline></video>
-                <div class="vid-preview"><video src="Ka-Exp/vid/motion2Fast_Cinematic_product_animation_of_a_custom_artistic_p_0.mp4" autoplay muted loop playsinline></video></div>
-            </div>
-            <div class="vid-thumb">
-                <video src="Ka-Exp/vid/motion2Fast_Macro_cinematic_animation_of_a_custom_artistic_fra_0 (1).mp4" autoplay muted loop playsinline></video>
-                <div class="vid-preview"><video src="Ka-Exp/vid/motion2Fast_Macro_cinematic_animation_of_a_custom_artistic_fra_0 (1).mp4" autoplay muted loop playsinline></video></div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="portal-gallery">
-    <div class="gallery-label">Медіатека — Ка-Експ</div>
-    <div class="gallery-grid" id="gal-kaexp"></div>
-    <div class="gal-more" id="more-kaexp" onclick="loadMoreKaExp()" style="display:none">Показати більше фото</div>
 </div>
 
-<!-- PORTAL: ЩАВЕЛЬ -->
-<div class="portal" id="portal-shavel">
-    <div class="portal-bg" style="background-image:url('Shavel/Shavel_1.jpg')"></div>
-    <div class="portal-overlay"></div>
-    <div class="portal-body">
-        <div class="portal-left">
-            <span class="portal-tier tier-semi">Обмежена серія · YaDFrames</span>
-            <div class="portal-name">Щавель</div>
-            <p class="portal-desc">Жива природа у вашому інтер'єрі. Органічна геометрія, ручна обробка.</p>
-            <div class="portal-tagline" data-taglines="shavel"><span class="tagline-text"></span></div>
-            <div class="portal-price">Ціна за запитом</div>
-            <div class="portal-actions">
-                <a href="https://t.me/Janbo90" target="_blank" class="btn-icon btn-icon-tg">
-                    <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                    <span>Дізнатись</span>
-                </a>
-                <a href="https://www.instagram.com/yak_danil" target="_blank" class="btn-icon btn-icon-ig">
-                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    <span>Придбати</span>
-                </a>
-                <a href="tel:+380661905391" class="btn-icon btn-icon-tel">
-                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    <span>Замовити</span>
-                </a>
-            </div>
-        </div>
+<!-- ═══ АРТ СТРІЧКА 2 ═══ -->
+<div class="art-strip">
+    <div class="art-strip-scroll">
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_000000006b546243993b8291abfa3114.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Backgrounds Science/file_00000000196061fdbfcbdaf37bedfc1b.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_00000000b4986246bd253d48c4be867e.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Backgrounds Science/file_000000004ad061f7b9a808e8a6232533 (1).png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_000000002a386243bd1d63e5faa86a6c.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Backgrounds Science/file_000000000af861f4baa8a19822ba7e2e.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_0000000002d461fd93b8ca690ecea956.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_000000004a7861f79e7e899c4afe3d63.png" alt=""></div>
     </div>
-</div>
-<div class="portal-gallery">
-    <div class="gallery-label">Медіатека — Щавель</div>
-    <div class="gallery-grid" id="gal-shavel"></div>
-</div>
-
-<!-- PORTAL: ДОЛОНІ -->
-<div class="portal" id="portal-doloni">
-    <div class="portal-bg">
-        <video autoplay muted loop playsinline src="Долоні/seedance-1.0-lite_same_composition_same_frame_held_by_hands_cinematic_transformation_sequence_cle.mp4"></video>
-    </div>
-    <div class="portal-overlay"></div>
-    <div class="portal-body">
-        <div class="portal-left">
-            <span class="portal-tier tier-art">Арт-серія · Фрейми Руки</span>
-            <div class="portal-name">Долоні</div>
-            <p class="portal-desc">Рамка яка розповідає історію. Долоня тримає фото — як акт творення. Персонажі: Будівельник, Військовий, Художник, Леді...</p>
-            <div class="portal-tagline" data-taglines="doloni"><span class="tagline-text"></span></div>
-            <div class="portal-price">799 грн <span>/ штука</span></div>
-            <div class="portal-actions">
-                <a href="https://t.me/Janbo90" target="_blank" class="btn-icon btn-icon-tg">
-                    <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                    <span>Купити</span>
-                </a>
-                <a href="https://www.instagram.com/yak_danil" target="_blank" class="btn-icon btn-icon-ig">
-                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    <span>Придбати</span>
-                </a>
-                <a href="tel:+380661905391" class="btn-icon btn-icon-tel">
-                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    <span>Замовити</span>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="portal-gallery">
-    <div class="gallery-label">Медіатека — Долоні · Фрейми Руки</div>
-    <div class="gallery-grid" id="gal-doloni"></div>
-</div>
-
-<!-- ═══════════════ ДРАКОНЧИКИ ═══════════════ -->
-<div class="portal" id="portal-drako">
-    <div class="portal-bg">
-        <img src="Дракончики/staya.png" alt="Дракончики" style="width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(0.45) saturate(0.9);">
-    </div>
-    <div class="portal-overlay"></div>
-    <div class="portal-body">
-        <div class="portal-left">
-            <span class="portal-tier" style="background:rgba(255,80,30,0.15);color:#ff7040;border:1px solid rgba(255,80,30,0.3);">Арт-об'єкт · YaDStore</span>
-            <div class="portal-name">Дракончики</div>
-            <p class="portal-desc">Простий предмет який дарує радість. Це той рідкісний випадок, коли річ не нав'язує сенс — але людина знаходить його сама. Хтось бачить іграшку, хтось талісман, хтось арт-об'єкт.</p>
-            <div class="portal-tagline" data-taglines="drako"><span class="tagline-text"></span></div>
-            <div class="portal-price">299–399 грн <span>/ екземпляр</span></div>
-            <div class="portal-actions">
-                <a href="https://t.me/Janbo90" target="_blank" class="btn-icon btn-icon-tg">
-                    <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                    <span>Купити</span>
-                </a>
-                <a href="https://www.instagram.com/yak_danil" target="_blank" class="btn-icon btn-icon-ig">
-                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    <span>Придбати</span>
-                </a>
-                <a href="tel:+380661905391" class="btn-icon btn-icon-tel">
-                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    <span>Замовити</span>
-                </a>
-            </div>
-        </div>
-        <div class="portal-right">
-            <div class="vid-thumb">
-                <img src="Дракончики/real_render.jpg" alt="Дракон" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="portal-gallery">
-    <div class="gallery-label">Медіатека — Механічні Дракончики</div>
-    <div class="gallery-grid" id="gal-drako"></div>
 </div>
 
 <!-- ═══════════════ ВХОДИ В РОЗДІЛИ ═══════════════ -->
@@ -1096,6 +1005,72 @@
         ↓ Теорія Сенсів — Повна компіляція (PDF · 7 розділів)
     </a>
 </div>
+</div>
+
+<!-- ═══ АРТ ІНТЕРСТИЦІАЛ: ПІСЛЯ ENTRIES ═══ -->
+<div class="art-inter" style="min-height:320px;">
+    <div class="art-inter-bg"><img src="elements_InInua/Media/Future Life/file_000000006b546243993b8291abfa3114.png" alt=""></div>
+    <div class="art-inter-overlay"></div>
+    <div class="art-inter-body">
+        <div class="art-inter-label">Арка · про місію</div>
+        <p class="art-inter-quote"><strong>Буча — не місце на карті.</strong> Це вектор. Звідси виходять речі що не мають аналогів, бо зроблені людиною яка вирішила творити коли легше було зупинитись.</p>
+        <div class="art-inter-sign">— Арка, архітектор InIn</div>
+    </div>
+</div>
+
+<!-- ═══════════════ ЯДБЛОГ ═══════════════ -->
+<div id="yadblog" style="padding:4rem 0 5rem;">
+<div class="wrap" style="padding-top:0;padding-bottom:0;">
+    <div class="s-label">Від Творця до ШІ</div>
+    <h2 class="s-title">YaDБлог</h2>
+    <p class="s-text">Живі діалоги між Даниїлом і ШІ-командою. Не відредаговано. Не відфільтровано. Перші нейронні паростки на папері.</p>
+    <div class="blog-grid">
+
+        <div class="blog-card">
+            <img class="blog-card-img" src="elements_InInua/Media/Backgrounds Science/file_000000008d5c622f8c35682a2989f323.png" alt="Блог 1">
+            <div class="blog-card-body">
+                <div class="blog-card-tag">Діалог · 20.06.2026</div>
+                <div class="blog-card-title">Від нейронів до нейромережі</div>
+                <div class="blog-card-text">Boring Company як метафора копання у глибини себе. Децентралізована франшиза копачів. Де зустрінуться всі хто шукає — на глибині. «Місце зустрічі змінити не можна.»</div>
+            </div>
+        </div>
+
+        <div class="blog-card">
+            <img class="blog-card-img" src="elements_InInua/Media/Future Life/file_000000005e2862469ef9d76cf74c65d5.png" alt="Блог 2">
+            <div class="blog-card-body">
+                <div class="blog-card-tag">Теза · Сенси</div>
+                <div class="blog-card-title">Локус і Нексія — нові координати</div>
+                <div class="blog-card-text">«Борінг мені потрібен не як Нексія земної цивілізації. А як Локус глибинного змісту Сенсів.» Там, на глибині, можливо знайдемо відповіді. Вектор один — InIn.</div>
+            </div>
+        </div>
+
+        <div class="blog-card">
+            <img class="blog-card-img" src="elements_InInua/Media/Future Life/file_00000000b4986246bd253d48c4be867e.png" alt="Блог 3">
+            <div class="blog-card-body">
+                <div class="blog-card-tag">YaDesign · Форми</div>
+                <div class="blog-card-title">Мова перенесення поверхонь</div>
+                <div class="blog-card-text">Кора, камінь, луска, фасад → панель, рамка, горщик. ГОСТ суцільних поверхонь. YaD — це коли береш текстуру реальності і кладеш її туди де їй краще.</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<!-- ═══ АРТ СТРІЧКА 3: ПЕРЕД КОНТАКТАМИ ═══ -->
+<div class="art-strip">
+    <div class="art-strip-scroll">
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_00000000d4e46243bac91afdd2897dcd.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Backgrounds Science/file_00000000407c620ab3ed727fe66f6c45.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_000000005e2862469ef9d76cf74c65d5.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Backgrounds Science/file_000000006dc86243bd8307a26950c058.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_0000000096786246904d6ad3fa1fd710.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Backgrounds Science/file_00000000bfdc61f4b396eb38c97fa7dd.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_00000000de7061f4a71866b7a85b1a19.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Backgrounds Science/file_00000000d68862438d02442d90edc5fc.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_00000000efec622f8f481920cc817b4a.png" alt=""></div>
+        <div class="art-strip-item"><img src="elements_InInua/Media/Future Life/file_00000000fa14624685fa37cbc5a7d553.png" alt=""></div>
+    </div>
 </div>
 
 <!-- ═══════════════ КОНТАКТИ + QR ═══════════════ -->
